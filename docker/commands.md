@@ -21,9 +21,16 @@ docker pull [image-_name]
 # actibate
 docker run -i -t centos:centos7 /bin/bash
 docker run -p 8080:80 httpd 
-docker run -d -p 8080:80 httpd 
+docker run -i -t -d -p 8080:80 httpd  /bin/bash
 docker run -d -i -t centos:centos7 /bin/bash
 docker run  -d centos:centos7 /bin/bash
+
+# background
+docker run --detach nginx
+docker attach
+
+docker stop eloquent_swan
+
 --name [name]
 -e [env]=[val]
 -d <---backgroud 
@@ -53,6 +60,19 @@ docker inspect --format '{{.Config.Hostname}} {{ .NetworkSettings.IPAddress }}  
 # os operation
 hostname -i
 cat /etc/os-release
+
+## Ubuntu系
+apt-get update
+apt-get install vim
+
+## Centos系
+yum install vim
+
+## Alpine
+apk update
+apk add vim
+
+
 
 # docker file
 cd <Dockerfileが存在するディレクトリ>
