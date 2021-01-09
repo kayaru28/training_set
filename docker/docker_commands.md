@@ -51,6 +51,8 @@ docker rm [container_id]
 ... docker rm $(docker ps -a -q)
 ... docker -f rm $(docker ps -a -q) <--- include running container
 
+docker rmi [imageid]
+
 docker exec -i -t [container_id] /bin/bash
 
 # docker inspect
@@ -72,9 +74,10 @@ yum install vim
 apk update
 apk add vim
 
-
-
 # docker file
 cd <Dockerfileが存在するディレクトリ>
-docker build -t [Dockerfile_name]{:[tag_name]} .
+docker build -t [image_name]{:[tag_name]} -f  [dockerfilename] .
 docker images
+
+docker build -t python36:flask -f dockerfile_python.df .
+
