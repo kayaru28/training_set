@@ -7,8 +7,11 @@ RUN pip3 install flask
 RUN pip3 install datetime
 
 RUN yum install wget -y
-
 RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/flask_base.py
 
+RUN yum install iproute -y
 
 
+ENV LC_ALL en_US.UTF-8
+ENV FLASK_APP /flask_base.py
+CMD ["flask", "run", "--host", "0.0.0.0","--port","8080"]
