@@ -1,3 +1,5 @@
+/usr/local/apache2/conf/httpd.conf
+
 ServerRoot --- apache server installed directory
  > /usr/local/apache2
 
