@@ -7,7 +7,6 @@ RUN pip3 install flask
 RUN pip3 install datetime
 RUN pip3 install sqlalchemy
 
-
 RUN yum install wget -y
 RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/flask_base.py
 RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/html.zip

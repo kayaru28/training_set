@@ -28,7 +28,7 @@ NG] docker run -i -t -p 8081:8080 python36:flask13 /bin/bash
 
 NG is not generate flask process
 
-## vase3
+## case3
 ### error_log
 [root@localhost 001_python_tool]# docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -46,5 +46,47 @@ Error response from daemon: conflict: unable to delete 345236474040 (must be for
 docker rmi python36:flask9
 not point image id
 
+
+## case4
+### error_log
+ * Serving Flask app "/flask_base.py"
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+10.255.255.2 - - [11/Jan/2021 14:22:25] "GET / HTTP/1.1" 200 -
+[2021-01-11 14:22:29,146] ERROR in app: Exception on /rps [GET]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/flask_base.py", line 26, in rpspage
+    return render_template("rps_form.html")
+  File "/usr/local/lib/python3.6/site-packages/flask/templating.py", line 138, in render_template
+    ctx.app.jinja_env.get_or_select_template(template_name_or_list),
+  File "/usr/local/lib/python3.6/site-packages/jinja2/environment.py", line 930, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+  File "/usr/local/lib/python3.6/site-packages/jinja2/environment.py", line 883, in get_template
+    return self._load_template(name, self.make_globals(globals))
+  File "/usr/local/lib/python3.6/site-packages/jinja2/environment.py", line 857, in _load_template
+    template = self.loader.load(self, name, globals)
+  File "/usr/local/lib/python3.6/site-packages/jinja2/loaders.py", line 115, in load
+    source, filename, uptodate = self.get_source(environment, name)
+  File "/usr/local/lib/python3.6/site-packages/flask/templating.py", line 60, in get_source
+    return self._get_source_fast(environment, template)
+  File "/usr/local/lib/python3.6/site-packages/flask/templating.py", line 89, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: rps_form.html
+10.255.255.2 - - [11/Jan/2021 14:22:29] "GET /rps HTTP/1.1" 500 -
 
 
