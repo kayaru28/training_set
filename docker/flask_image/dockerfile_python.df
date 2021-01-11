@@ -4,11 +4,14 @@ RUN yum install python3 -y
 
 RUN pip3 install --upgrade pip
 RUN pip3 install flask
-RUN pip3 install datetimevi
+RUN pip3 install datetime
+RUN pip3 install sqlalchemy
+
 
 RUN yum install wget -y
 RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/flask_base.py
 RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/html.zip
+RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/mysql_proc.py
 
 RUN yum install unzip -y
 RUN unzip html.zip
