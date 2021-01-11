@@ -4,13 +4,12 @@ RUN yum install python3 -y
 
 RUN pip3 install --upgrade pip
 RUN pip3 install flask
-RUN pip3 install datetime
+RUN pip3 install datetimevi
 
 RUN yum install wget -y
 RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/flask_base.py
 
 RUN yum install iproute -y
-
 
 ENV LC_ALL en_US.UTF-8
 ENV FLASK_APP /flask_base.py
