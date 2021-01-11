@@ -21,3 +21,30 @@ This system lists a couple of UTF-8 supporting locales that you can pick from. T
 ### solution
 export LC_ALL=en_US.UTF-8
 
+## case2
+### error issue
+OK] docker run -d -p 8081:8080 python36:flask13
+NG] docker run -i -t -p 8081:8080 python36:flask13 /bin/bash
+
+NG is not generate flask process
+
+## vase3
+### error_log
+[root@localhost 001_python_tool]# docker image ls
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+python36            flask5              345236474040        9 hours ago         460MB
+python36            flask9              345236474040        9 hours ago         460MB
+httpd               latest              0a30f4c29d25        7 weeks ago         138MB
+centos              7                   8652b9f0cb4c        8 weeks ago         204MB
+centos              centos7             8652b9f0cb4c        8 weeks ago         204MB
+hello-world         latest              bf756fb1ae65        12 months ago       13.3kB
+
+[root@localhost 001_python_tool]# docker rmi 345236474040
+Error response from daemon: conflict: unable to delete 345236474040 (must be forced) - image is referenced in multiple repositories
+
+### solution
+docker rmi python36:flask9
+not point image id
+
+
+
