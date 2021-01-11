@@ -8,6 +8,10 @@ RUN pip3 install datetimevi
 
 RUN yum install wget -y
 RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/flask_base.py
+RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/html.zip
+
+RUN yum install unzip -y
+RUN unzip html.zip
 
 RUN yum install iproute -y
 
