@@ -9,14 +9,12 @@ RUN pip3 install sqlalchemy
 RUN pip3 install random
 
 RUN yum install wget -y
-RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/flask_base.py
-RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image//templates.zip
-RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/mysql_proc.py
-
 RUN yum install unzip -y
-RUN unzip templates.zip
-
 RUN yum install iproute -y
+
+ARG download_zip="app-python.zip"
+RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/${download_zip}
+RUN unzip ${download_zip}
 
 ENV LC_ALL en_US.UTF-8
 ENV FLASK_APP /flask_base.py
