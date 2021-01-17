@@ -1,0 +1,7 @@
+FROM centos:7
+
+RUN yum localinstall http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm -y
+
+RUN yum install mysql-community-server -y
+
+RUN systemctl enable mysqld
