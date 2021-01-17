@@ -24,6 +24,7 @@ docker run -p 8080:80 httpd
 docker run -i -t -d -p 8080:80 httpd  /bin/bash
 docker run -d -i -t centos:centos7 /bin/bash
 docker run  -d centos:centos7 /bin/bash
+ --net mybridge --name alpine3 
 
 # background
 docker run --detach nginx
@@ -58,6 +59,13 @@ docker exec -i -t [container_id] /bin/bash
 # docker inspect
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' $(docker ps -q)
 docker inspect --format '{{.Config.Hostname}} {{ .NetworkSettings.IPAddress }}  {{ .NetworkSettings.Gateway }}' $(docker ps -q)
+
+# docker network
+docker network create --driver=bridge network-name
+
+
+
+
 
 # os operation
 hostname -i
