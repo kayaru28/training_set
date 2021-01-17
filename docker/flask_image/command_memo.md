@@ -12,16 +12,19 @@ docker run -itd --net flask --name ${conname} ${dfname} /bin/bash
 
  --net flask --name ${conname} 
 
-
-export conname="mysql"
-export dfname="mysql:flask"
-docker run -itd --net flask --name ${conname} ${dfname} /sbin/init
-
-
-
 docker build -t ${dfname} -f dockerfile_python.df .
-docker build -t ${dfname} -f dockerfile_mysql.df .
 
+
+export sql_conname="mysql"
+export sql_dfname="mysql:flask-base"
+docker build -t ${sql_dfname} -f dockerfile_mysql.df .
+docker run -itd --privileged --net flask --name ${sql_conname} ${sql_dfname} /sbin/init
+
+
+
+
+
+mysql --user=root --password=$(cat root_password.txt)
 
  yum install -y iproute
  ss -anp
