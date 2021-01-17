@@ -6,7 +6,6 @@ RUN pip3 install --upgrade pip
 RUN pip3 install flask
 RUN pip3 install datetime
 RUN pip3 install sqlalchemy
-RUN pip3 install random
 
 RUN yum install wget -y
 RUN yum install unzip -y
@@ -18,4 +17,8 @@ RUN unzip ${download_zip}
 
 ENV LC_ALL en_US.UTF-8
 ENV FLASK_APP /flask_base.py
-CMD ["flask", "run", "--host", "0.0.0.0","--port","8080"]
+#CMD ["flask", "run", "--host", "0.0.0.0","--port","8080"]
+
+
+
+
