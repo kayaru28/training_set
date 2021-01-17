@@ -44,6 +44,8 @@ docker ps -q
 
 
 # docker operation 
+docker stop $(docker ps -q)
+
 Ctrl+P Ctrl+Q
 docker commit [container_id] [image_name]
 docker kill [container_id]
