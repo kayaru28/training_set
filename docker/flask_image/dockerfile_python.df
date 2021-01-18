@@ -10,6 +10,10 @@ RUN pip3 install sqlalchemy
 RUN yum install wget -y
 RUN yum install unzip -y
 RUN yum install iproute -y
+RUN yum install openssh-clients -y
+
+ARG ip_host=10.255.255.1
+scp root@${ip_host}:/root/dockerfiles/001_python_tool/secret.txt /root/
 
 ARG download_zip="app-python.zip"
 RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/${download_zip}
