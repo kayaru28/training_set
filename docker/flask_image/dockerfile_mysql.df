@@ -4,18 +4,7 @@ RUN yum localinstall http://dev.mysql.com/get/mysql57-community-release-el7-7.no
 
 RUN yum install mysql-community-server -y
 
-RUN systemctl enable mysqld
 RUN yum install iproute -y
 RUN yum install wget -y
 
-RUN cat /var/log/mysqld.log | grep 'temporary password' | awk '{print $11;}' > root_password.txt
-RUN mysql --user=root --password=$(cat root_password.txt)
-
-RUN create table rps.battle_history( \
-    time timestamp, \
-    id int, \
-    name varchar(10), \ 
-    choice_id int, \
-    result varchar(10)  \
-); \
-alter table rps.battle_history add primary key (time,id); 
+RUN systemctl enable mysqld
