@@ -1,6 +1,6 @@
 
 
-export dfname="python36:flask"
+export dfname="python36:flask2"
 export conname="flask"
 
 docker run -d -p 8081:8080 ${dfname}
@@ -16,7 +16,7 @@ docker build -t ${dfname} -f dockerfile_python.df .
 
 
 export sql_conname="mysql"
-export sql_dfname="mysql:base"
+export sql_dfname="mysql:flask2"
 docker build -t ${sql_dfname} -f dockerfile_mysql.df .
 docker run -itd --privileged --net flask --name ${sql_conname} ${sql_dfname} /sbin/init
 
@@ -50,4 +50,4 @@ alter table rps.battle_history add primary key (time,id);
 
 
 
-yum install openssh-clients -y
+RUN scp root@${ip_host}:/root/dockerfiles/001_python_tool/secret.txt /root/
