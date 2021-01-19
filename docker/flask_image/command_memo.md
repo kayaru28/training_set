@@ -26,7 +26,9 @@ docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --priv
 
 
 
-mysql --user=root --password=$(cat root_password.txt)
+mysql --user=root --password=$root_password
+SET PASSWORD FOR root = PASSWORD('Root090401');
+ALTER USER root@localhost IDENTIFIED BY 'Root-090401';
 
  yum install -y iproute
  ss -anp
@@ -37,8 +39,16 @@ docker run -itd --privileged baaff59b44a3 /sbin/init
 
 
 
-cat /var/log/mysqld.log | grep 'temporary password' | awk '{print $11;}' > root_password.txt
-mysql --user=root --password=$(cat root_password.txt)
+
+export mysql_password=$(cat /var/log/mysqld.log | grep pass | awk '{print $11}' )
+mysql --user=root --password=$mysql_password
+
+create database mydb; 
+mysql --user=root --password=$root_password --connect-expired-password -e "ALTER USER root@localhost IDENTIFIED BY $root_password;" 
+
+mysql --user=root --password=$root_password --connect-expired-password -e "create database mydb;" 
+
+
 
 create table rps.battle_history( \
     time timestamp, \
