@@ -16,6 +16,17 @@ docker run -itd -p 8081:8080 --net flask --name ${conname} ${dfname} /bin/bash
  --net flask --name ${conname} 
 
 # df for sql
+export sql_ver=
+export sql_conname="mysql${sql_ver}"
+export sql_dfname="mysql:flask${sql_ver}"
+export root_pass=$(cat $PWD/setup/secret.txt | grep root_pass | awk '{print $1}')
+
+docker build -t ${sql_dfname} -f dockerfile_mysql.df .
+docker run -d -v "$PWD/setup/mysql_setup:/docker-entrypoint-initdb.d" -e MYSQL_ROOT_PASSWORD=${root_pass} --net flask --name ${sql_conname} ${sql_dfname}
+
+
+
+# df for sql Legacy
 export sql_ver=8
 export sql_conname="mysql${sql_ver}"
 export sql_dfname="mysql:flask${sql_ver}"
@@ -24,23 +35,13 @@ docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --priv
 
 docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --privileged --net flask --name ${sql_conname} ${sql_dfname} /sbin/init
 
-
-
-
+# SQL root
 mysql --user=root --password=$root_password
-SET PASSWORD FOR root = PASSWORD('Root090401');
-ALTER USER root@localhost IDENTIFIED BY 'Root-0904';
-ALTER USER root@localhost IDENTIFIED BY 'root-0904';
+SET PASSWORD FOR root = PASSWORD('******');
+ALTER USER root@localhost IDENTIFIED BY '******';
 
  yum install -y iproute
  ss -anp
-
-
-
-docker run -itd --privileged baaff59b44a3 /sbin/init
-
-
-
 
 export mysql_password=$(cat /var/log/mysqld.log | grep pass | awk '{print $11}' )
 mysql --user=root --password=$mysql_password

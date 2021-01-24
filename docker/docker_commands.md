@@ -1,4 +1,9 @@
 
+
+# frequent
+docker rm $(docker ps -a -q)
+
+
 # network
 nmcli d
 nmtui
@@ -20,11 +25,6 @@ docker pull [image-_name]
 
 # actibate
 docker run -i -t centos:centos7 /bin/bash
-docker run -p 8080:80 httpd 
-docker run -i -t -d -p 8080:80 httpd  /bin/bash
-docker run -d -i -t centos:centos7 /bin/bash
-docker run  -d centos:centos7 /bin/bash
- --net mybridge --name alpine3 
 
 # background
 docker run --detach nginx
@@ -41,7 +41,6 @@ docker images
 docker ps
 docker ps -a
 docker ps -q
-
 
 # docker operation 
 docker stop $(docker ps -q)
