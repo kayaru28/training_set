@@ -6,18 +6,23 @@ RUN pip3 install --upgrade pip
 RUN pip3 install flask
 RUN pip3 install datetime
 RUN pip3 install sqlalchemy
+RUN pip3 install os
 
 RUN yum install wget -y
 RUN yum install unzip -y
 RUN yum install iproute -y
 
-ARG download_zip="app-python.zip"
-RUN wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/${download_zip}
-RUN unzip ${download_zip}
+RUN yum install python-devel mysql-devel -y
+RUN yum install python3-devel -y
+RUN yum install gcc -y
+RUN pip3 install mysqlclient
+
 
 ENV LC_ALL en_US.UTF-8
 ENV FLASK_APP /flask_base.py
-#CMD ["flask", "run", "--host", "0.0.0.0","--port","8080"]
+
+ENTRYPOINT sh /root/setup/setup_rps_flask.sh
+
 
 
 

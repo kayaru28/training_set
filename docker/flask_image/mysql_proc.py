@@ -1,15 +1,15 @@
 import random
 import datetime
+import os
 from sqlalchemy import func
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 #from sqlalchemy import distinct
 root_user = "root"
-root_pass = "Root-0904"
-root_host = "localhost"
+root_pass = os.environ['root_password']
+root_host = "mysql"
 db_name_rps = "rps"
-
 
 #------------------------------------------------------------------------------
 #-

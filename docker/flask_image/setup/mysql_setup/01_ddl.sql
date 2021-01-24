@@ -12,3 +12,4 @@ CREATE TABLE rps.battle_history(
 ALTER TABLE rps.battle_history ADD PRIMARY KEY (time,id);
 
 
+

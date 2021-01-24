@@ -1,9 +1,12 @@
 
 
-export dfname="python36:flask2"
-export conname="flask"
+export flask_ver=
+export dfname="python36:flask${lask_ver}"
+export conname="flask${lask_ver}"
 docker build -t ${dfname} -f dockerfile_python.df .
 docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro  -p 8081:8080 --net flask --name ${conname} ${dfname} /bin/bash
+
+docker run -it --net flask 259ef0f84cf5 /bin/bash
 
 
 docker run -d -p 8081:8080 ${dfname}
