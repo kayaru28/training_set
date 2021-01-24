@@ -6,7 +6,6 @@ RUN pip3 install --upgrade pip
 RUN pip3 install flask
 RUN pip3 install datetime
 RUN pip3 install sqlalchemy
-RUN pip3 install os
 
 RUN yum install wget -y
 RUN yum install unzip -y
@@ -21,7 +20,10 @@ RUN pip3 install mysqlclient
 ENV LC_ALL en_US.UTF-8
 ENV FLASK_APP /flask_base.py
 
-ENTRYPOINT sh /root/setup/setup_rps_flask.sh
+ENTRYPOINT  source /root/setup/setup_rps_flask.sh
+
+
+
 
 
 
