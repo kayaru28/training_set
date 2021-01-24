@@ -8,3 +8,6 @@ RUN yum install iproute -y
 RUN yum install wget -y
 
 RUN systemctl enable mysqld
+
+CMD ["sh","/root/setup/setup_rps_mysql.sh"]
+

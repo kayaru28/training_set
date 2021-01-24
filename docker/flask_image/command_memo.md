@@ -15,20 +15,22 @@ docker run -itd -p 8081:8080 --net flask --name ${conname} ${dfname} /bin/bash
 
  --net flask --name ${conname} 
 
-
-
-export sql_conname="mysql"
-export sql_dfname="mysql:flask2"
+# df for sql
+export sql_ver=8
+export sql_conname="mysql${sql_ver}"
+export sql_dfname="mysql:flask${sql_ver}"
 docker build -t ${sql_dfname} -f dockerfile_mysql.df .
-docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --privileged --net flask --name ${sql_conname} ${sql_dfname} /sbin/init
+docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --privileged --net flask --name ${sql_conname} ${sql_dfname}
 
+docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --privileged --net flask --name ${sql_conname} ${sql_dfname} /sbin/init
 
 
 
 
 mysql --user=root --password=$root_password
 SET PASSWORD FOR root = PASSWORD('Root090401');
-ALTER USER root@localhost IDENTIFIED BY 'Root-090401';
+ALTER USER root@localhost IDENTIFIED BY 'Root-0904';
+ALTER USER root@localhost IDENTIFIED BY 'root-0904';
 
  yum install -y iproute
  ss -anp
@@ -63,3 +65,10 @@ alter table rps.battle_history add primary key (time,id);
 
 
 RUN scp root@${ip_host}:/root/dockerfiles/001_python_tool/secret.txt /root/
+
+source setup_rps_mysql.sh
+
+
+
+
+
