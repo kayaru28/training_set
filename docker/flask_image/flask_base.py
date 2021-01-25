@@ -9,6 +9,19 @@ app = Flask(__name__)  # アプリの設定
 def formatRatio(ratio):
     return format(ratio, '.2f')
 
+def duel(get_val):
+    duel_val = int(random.random()*3)
+    if get_val == duel_val:
+        res = "draw"
+    elif get_val == 0 and duel_val == 2:
+        res = "win"
+    elif get_val > duel_val:
+        res = "win"
+    else:
+        res = "loose"
+    return res
+
+
 @app.route("/")  # どのページで実行する関数か設定
 def main():
     return "Hello, World! I am iron man"  # Hello, World! を出力
@@ -24,24 +37,20 @@ def ratiopage():
 def rpspage():
     return render_template("rps_form.html")
 
-@app.route("/rpsapi", methods=["GET", "POST"])
+@app.route("/rpsapi", methods=["GET"])
 def rpsapi():
-    return render_template("rps_form.html")
+    get_name = request.form["name"]
+    get_val = int(request.form["value"])
+    duel_val = int(random.random()*3)
+
+
 
 @app.route("/rps_result", methods=["GET", "POST"])
 def rpsResultpage():
     get_name = request.form["name"]
     get_val = int(request.form["value"])
-    duel_val = int(random.random()*3)
 
-    if get_val == duel_val:
-        res = "draw"
-    elif get_val == 0 and duel_val == 2:
-        res = "win"
-    elif get_val > duel_val:
-        res = "win"
-    else:
-        res = "loose"
+    res = duel(get_val)
     
     duel_time = datetime.datetime.today().strftime("%Y/%m/%d/%H/%M/%S")
 
