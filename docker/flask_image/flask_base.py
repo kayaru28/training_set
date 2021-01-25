@@ -19,8 +19,7 @@ def duel(get_val):
         res = "win"
     else:
         res = "loose"
-    return res
-
+    return res,duel_val
 
 @app.route("/")  # どのページで実行する関数か設定
 def main():
@@ -50,8 +49,8 @@ def rpsResultpage():
     get_name = request.form["name"]
     get_val = int(request.form["value"])
 
-    res = duel(get_val)
-    
+    res,duel_val = duel(get_val)
+
     duel_time = datetime.datetime.today().strftime("%Y/%m/%d/%H/%M/%S")
 
     sql.recordedBattleResult(get_name,get_val,res)
