@@ -30,7 +30,7 @@ def rpsapi():
 
 @app.route("/rps_result", methods=["GET", "POST"])
 def rpsResultpage():
-    get_name = int(request.form["name"])
+    get_name = request.form["name"]
     get_val = int(request.form["value"])
     duel_val = int(random.random()*3)
 

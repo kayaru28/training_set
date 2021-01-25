@@ -1,1 +1,1 @@
-
+echo "setup start"
