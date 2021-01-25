@@ -45,7 +45,13 @@ def rpsapi():
     get_name = request.args.get('name', default='noname')
     get_val = request.args.get('value', default=0, type=int)
     res,duel_val,duel_time = duel(get_name,get_val)
-
+    return render_template('rps_result.html'
+        , get_val=get_val
+        , duel_val=duel_val
+        , res = res
+        , duel_time=duel_time
+    )
+    
 @app.route("/rps_result", methods=["GET", "POST"])
 def rpsResultpage():
     get_name = request.form["name"]
