@@ -8,7 +8,7 @@ docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro  -p 80
 
 ## test
 docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask ${dfname}
-
+http://10.255.255.1:8081/rpsapi?name=kayaru&value=0
 
 
 # df for sql
