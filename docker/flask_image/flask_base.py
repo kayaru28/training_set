@@ -24,8 +24,13 @@ def ratiopage():
 def rpspage():
     return render_template("rps_form.html")
 
+@app.route("/rpsapi", methods=["GET", "POST"])
+def rpsapi():
+    return render_template("rps_form.html")
+
 @app.route("/rps_result", methods=["GET", "POST"])
 def rpsResultpage():
+    get_name = int(request.form["name"])
     get_val = int(request.form["value"])
     duel_val = int(random.random()*3)
 
@@ -40,7 +45,7 @@ def rpsResultpage():
     
     duel_time = datetime.datetime.today().strftime("%Y/%m/%d/%H/%M/%S")
 
-    sql.recordedBattleResult("GUEST",get_val,res)
+    sql.recordedBattleResult(get_name,get_val,res)
     return render_template('rps_result.html'
         , get_val=get_val
         , duel_val=duel_val
