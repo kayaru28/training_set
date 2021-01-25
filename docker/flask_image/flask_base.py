@@ -9,7 +9,7 @@ app = Flask(__name__)  # アプリの設定
 def formatRatio(ratio):
     return format(ratio, '.2f')
 
-def duel(get_val):
+def duel(get_name,get_val):
     duel_val = int(random.random()*3)
     if get_val == duel_val:
         res = "draw"
@@ -19,7 +19,11 @@ def duel(get_val):
         res = "win"
     else:
         res = "loose"
-    return res,duel_val
+
+    duel_time = datetime.datetime.today().strftime("%Y/%m/%d/%H/%M/%S")
+    sql.recordedBattleResult(get_name,get_val,res)
+
+    return res,duel_val,duel_time
 
 @app.route("/")  # どのページで実行する関数か設定
 def main():
@@ -38,22 +42,17 @@ def rpspage():
 
 @app.route("/rpsapi", methods=["GET"])
 def rpsapi():
-    get_name = request.form["name"]
-    get_val = int(request.form["value"])
-    duel_val = int(random.random()*3)
-
-
+    get_name = request.args.get('name', default='noname')
+    get_val = request.args.get('value', default=0, type=int)
+    res,duel_val,duel_time = duel(get_name,get_val)
 
 @app.route("/rps_result", methods=["GET", "POST"])
 def rpsResultpage():
     get_name = request.form["name"]
     get_val = int(request.form["value"])
 
-    res,duel_val = duel(get_val)
+    res,duel_val,duel_time = duel(get_name,get_val)
 
-    duel_time = datetime.datetime.today().strftime("%Y/%m/%d/%H/%M/%S")
-
-    sql.recordedBattleResult(get_name,get_val,res)
     return render_template('rps_result.html'
         , get_val=get_val
         , duel_val=duel_val
