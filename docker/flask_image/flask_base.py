@@ -4,7 +4,17 @@ import mysql_proc as sql
 from flask import *  # 必要なライブラリのインポート
 import random
 import datetime
+import logging
 app = Flask(__name__)  # アプリの設定
+
+LOGFILE = "/access.log"
+app.logger.setLevel(logging.DEBUG)
+fh = logging.FileHandler(LOGFILE)
+fh.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+app.logger.addHandler(fh)
+
 
 def formatRatio(ratio):
     return format(ratio, '.2f')
