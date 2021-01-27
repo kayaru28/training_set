@@ -4,20 +4,9 @@ import mysql_proc as sql
 from flask import *  # 必要なライブラリのインポート
 import random
 import datetime
-import logging
+
 app = Flask(__name__)  # アプリの設定
 
-LOGFILE = "/access.log"
-file_handler = logging.FileHandler(LOGFILE)
-file_handler.setLevel(logging.DEBUG)
-file_handler.setLevel(logging.ERROR)
-file_handler.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-file_handler.setFormatter(formatter)
-app.logger.setLevel(logging.DEBUG)
-app.logger.setLevel(logging.ERROR)
-app.logger.setLevel(logging.INFO)
-app.logger.addHandler(file_handler)
 
 
 def formatRatio(ratio):
