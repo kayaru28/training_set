@@ -2,7 +2,8 @@
 /sbin/init
 
 echo "env setting"
-export mysql_password=$(cat /var/log/mysqld.log | grep pass | grep temporary | awk '{print $11}' )
+export mysql_password=$(cat 
+ | grep pass | grep temporary | awk '{print $11}' )
 export root_password=$(cat /root/setup/secret.txt |grep root_path| awk '{print $1}')
 
 echo "password change"

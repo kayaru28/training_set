@@ -7,7 +7,8 @@ rm -f *.py
 rm -r -f templates
 
 download_zip="app-python.zip"
-wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/${download_zip}
+#wget https://raw.githubusercontent.com/kayaru28/training_set/master/docker/flask_image/${download_zip}
+cp /root/setup/${download_zip} / # for test
 unzip ${download_zip}
 
-flask run --host 0.0.0.0 --port 8080
+flask run --host 0.0.0.0 --port 8080 

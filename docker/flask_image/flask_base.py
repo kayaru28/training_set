@@ -7,8 +7,6 @@ import datetime
 
 app = Flask(__name__)  # アプリの設定
 
-
-
 def formatRatio(ratio):
     return format(ratio, '.2f')
 
