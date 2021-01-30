@@ -5,10 +5,11 @@ from flask import *  # 必要なライブラリのインポート
 import random
 import datetime
 
-app = Flask(__name__)  # アプリの設定
-log_file = '/access_flask.log'
+LOG_FILE = '/applog_flask.log'
 
-get_handler = FileHandler(log_file)
+app = Flask(__name__)  # アプリの設定
+
+get_handler = FileHandler(LOG_FILE)
 werkzeug_logger = getLogger("werkzeug")
 werkzeug_logger.addHandler(get_handler)
 

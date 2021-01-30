@@ -5,11 +5,25 @@ from sqlalchemy import func
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+import logging
 #from sqlalchemy import distinct
-root_user = "root"
-root_pass = os.environ['root_password']
-root_host = "mysql"
-db_name_rps = "rps"
+ROOT_USER = "root"
+ROOT_PASS = os.environ['root_password']
+ROOT_HOST = "mysql"
+DB_NAME_RPS = "rps"
+LOG_FILE = '/applog_sqlalchemy.log'
+
+#------------------------------------------------------------------------------
+#-
+#- Logger
+#-
+#------------------------------------------------------------------------------
+
+logging.basicConfig()
+sqlalchemy_logger = logging.getLogger('sqlalchemy.engine')
+sqlalchemy_logger.setLevel(logging.INFO)
+get_handler = logging.FileHandler(LOG_FILE)
+sqlalchemy_logger.addHandler(get_handler)
 
 #------------------------------------------------------------------------------
 #-
@@ -18,7 +32,7 @@ db_name_rps = "rps"
 #------------------------------------------------------------------------------
 
 def getEngineKey(db_name):
-    return "mysql://"+root_user+":"+root_pass+"@"+root_host+"/" + db_name
+    return "mysql://"+ROOT_USER+":"+ROOT_PASS+"@"+ROOT_HOST+"/" + db_name
 
 class BattleResult():
     time_now = datetime.datetime.now()
@@ -27,7 +41,7 @@ class BattleResult():
     result = ""
 
 def getEngineRps():
-    engine_key = getEngineKey(db_name_rps)
+    engine_key = getEngineKey(DB_NAME_RPS)
     engine=create_engine(engine_key)
 
     return engine
