@@ -20,6 +20,19 @@ export root_pass=$(cat $PWD/setup/secret.txt | grep root_pass | awk '{print $1}'
 docker build -t ${sql_dfname} -f dockerfile_mysql.df .
 docker run -d -v "$PWD/setup/mysql_setup:/docker-entrypoint-initdb.d" -e MYSQL_ROOT_PASSWORD=${root_pass} --net flask --name ${sql_conname} ${sql_dfname}
 
+# df for logstash
+export logstash_ver=
+export logstash_conname="logstash${logstash_ver}"
+export logstash_dfname="logstash:flask${logstash_ver}"
+
+docker build -t ${logstash_dfname} -f dockerfile_logstash.df .
+
+docker run -d -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask --name ${logstash_conname} ${logstash_dfname}
+
+## for test
+docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask ${logstash_dfname}
+
+
 
 
 # df for sql Legacy
