@@ -1,11 +1,17 @@
 
 import mysql_proc as sql
-
+from logging import FileHandler,getLogger
 from flask import *  # 必要なライブラリのインポート
 import random
 import datetime
 
 app = Flask(__name__)  # アプリの設定
+log_file = '/access_flask.log'
+
+get_handler = FileHandler(log_file)
+werkzeug_logger = getLogger("werkzeug")
+werkzeug_logger.addHandler(get_handler)
+
 
 def formatRatio(ratio):
     return format(ratio, '.2f')
