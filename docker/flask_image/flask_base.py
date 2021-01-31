@@ -1,13 +1,15 @@
 
 import mysql_proc as sql
 from logging import FileHandler,getLogger
-from flask import *  # 必要なライブラリのインポート
+from flask import *  
 import random
 import datetime
+from os import environ
 
 LOG_FILE = '/applog_flask.log'
 
-app = Flask(__name__)  # アプリの設定
+app = Flask(__name__)  
+app.secret_key = environ['root_password']
 
 get_handler = FileHandler(LOG_FILE)
 werkzeug_logger = getLogger("werkzeug")
@@ -33,20 +35,17 @@ def duel(get_name,get_val):
 
     return res,duel_val,duel_time
 
-@app.route("/")  # どのページで実行する関数か設定
+@app.route("/") 
 def main():
-    return "Hello, World! I am iron man"  # Hello, World! を出力
-
-@app.route("/ratio", methods=["GET", "POST"])
-def ratiopage():
-    battle_count = sql.getBattleCount()
-    win_count = sql.getBattleCountForResult("win")
-    win_ratio = float(win_count) / battle_count
-    return "your win ratio is " + formatRatio(win_ratio)
+    return "I am iron man!!!!"
 
 @app.route("/rps", methods=["GET", "POST"])
 def rpspage():
-    return render_template("rps_form.html")
+    if 'user_name' in session:
+        shown_name = session['user_name']
+    else:
+        shown_name = "noname"
+    return render_template("rps_form.html",user_name=shown_name)
 
 @app.route("/rpsapi", methods=["GET"])
 def rpsapi():
@@ -65,6 +64,8 @@ def rpsResultpage():
     get_name = request.form["name"]
     get_val = int(request.form["value"])
 
+    session['user_name'] = get_name
+
     res,duel_val,duel_time = duel(get_name,get_val)
 
     return render_template('rps_result.html'
@@ -73,6 +74,14 @@ def rpsResultpage():
         , res = res
         , duel_time=duel_time
     )
+
+@app.route("/ratio", methods=["GET", "POST"])
+def ratiopage():
+    battle_count = sql.getBattleCount()
+    win_count = sql.getBattleCountForResult("win")
+    win_ratio = float(win_count) / battle_count
+    return "your win ratio is " + formatRatio(win_ratio)
+
 
 if __name__ == "__main__":  # 実行されたら
     app.run(debug=True, host='0.0.0.0', port=80, threaded=True)

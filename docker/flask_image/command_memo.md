@@ -1,10 +1,18 @@
+# trouble shoot
+
+docker commit { コンテナID } { コンテナ名を適当に付ける }
+
+docker run --rm -it { 適当につけたコンテナ名 } sh
 
 # df for flask app
 export flask_ver="1.0"
 export dfname="python36:flask${flask_ver}"
 export conname="flask"
-docker build -t ${dfname} -f dockerfile_python.df .
+
 docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro  -p 8081:8080 --net flask --name ${conname} ${dfname}
+
+docker build -t ${dfname} -f dockerfile_python.df .
+
 
 ## test
 docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask ${dfname}
@@ -17,21 +25,24 @@ export sql_conname="mysql${sql_ver}"
 export sql_dfname="mysql:flask${sql_ver}"
 export root_pass=$(cat $PWD/setup/secret.txt | grep root_pass | awk '{print $1}')
 
-docker build -t ${sql_dfname} -f dockerfile_mysql.df .
 docker run -d -v "$PWD/setup/mysql_setup:/docker-entrypoint-initdb.d" -e MYSQL_ROOT_PASSWORD=${root_pass} --net flask --name ${sql_conname} ${sql_dfname}
 
+docker build -t ${sql_dfname} -f dockerfile_mysql.df .
+
 # df for logstash
-export logstash_ver=
+export logstash_ver=""
 export logstash_conname="logstash${logstash_ver}"
 export logstash_dfname="logstash:flask${logstash_ver}"
 
 docker build -t ${logstash_dfname} -f dockerfile_logstash.df .
 
-docker run -d -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask --name ${logstash_conname} ${logstash_dfname}
+docker run -d -v /root/dockerfiles/001_python_tool/setup:/setup:ro --net flask --name ${logstash_conname} ${logstash_dfname}
 
 ## for test
-docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask ${logstash_dfname}
+docker run -it -v /root/dockerfiles/001_python_tool/setup:/setup:ro --net flask ${logstash_dfname}
 
+docker run -it -e XPACK_MONITORING_ENABLED=false docker.elastic.co/logstash/logsta
+sh:6.8.2
 
 
 

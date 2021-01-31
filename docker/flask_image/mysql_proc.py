@@ -1,6 +1,6 @@
 import random
 import datetime
-import os
+from os import environ
 from sqlalchemy import func
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 import logging
 #from sqlalchemy import distinct
 ROOT_USER = "root"
-ROOT_PASS = os.environ['root_password']
+ROOT_PASS = environ['root_password']
 ROOT_HOST = "mysql"
 DB_NAME_RPS = "rps"
 LOG_FILE = '/applog_sqlalchemy.log'
