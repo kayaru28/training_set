@@ -22,6 +22,11 @@ docker build -t ${dfname} -f dockerfile_python.df .
 docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask ${dfname}
 http://10.255.255.1:8081/rpsapi?name=kayaru&value=0
 
+docker build -t test:flask -f dockerfile_test_flask.df .
+
+
+docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask test:flask
+
 
 # df for sql
 export sql_ver=

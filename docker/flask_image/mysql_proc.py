@@ -5,6 +5,9 @@ from sqlalchemy import func
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.schema import Column
+from sqlalchemy.types import VARCHAR, Integer, TIMESTAMP
+
 import logging
 #from sqlalchemy import distinct
 ROOT_USER = "root"
@@ -47,11 +50,19 @@ def getEngineRps():
     return engine
 
 rps_engine = getEngineRps()
+
+
 Base=declarative_base(bind=rps_engine)
 
-class BattleHistory(Base):
-    __tablename__="battle_history" 
-    __table_args__={"autoload": True}
+class BattleHistory():
+    __tablename__ = "battle_history"
+
+    time        = Column(TIMESTAMP)
+    id          = Column(Integer)
+    name        = Column(VARCHAR(10))
+    choice_id   = Column(Integer)
+    result      = Column(VARCHAR(10))
+
 
 def getSession(engine):
     SessionClass=sessionmaker(engine)
