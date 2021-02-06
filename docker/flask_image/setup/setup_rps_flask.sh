@@ -11,4 +11,4 @@ download_zip="app-python.zip"
 cp /root/setup/${download_zip} / # for test
 unzip ${download_zip}
 
-flask run --host 0.0.0.0 --port 8080 
+flask run --host 0.0.0.0 --port 5000

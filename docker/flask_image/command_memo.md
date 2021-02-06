@@ -4,6 +4,10 @@ docker commit { コンテナID } { コンテナ名を適当に付ける }
 
 docker run --rm -it { 適当につけたコンテナ名 } sh
 
+
+# docker compose
+docker-compose up -d
+
 # df for flask app
 export flask_ver="1.0"
 export dfname="python36:flask${flask_ver}"

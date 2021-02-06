@@ -20,6 +20,10 @@ usermod -aG docker $USER
 
 chkconfig docker on
 
+# docker-compose install
+
+
+
 # docker image
 docker pull [image-_name]
 

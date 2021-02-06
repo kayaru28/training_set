@@ -1,0 +1,28 @@
+version: '3'
+services:
+
+  flask-app:
+    image: python36:flask
+    container_name: flask
+    networks:
+      - backend
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/root/setup:ro
+    ports:
+      - 8080:5000
+    depends_on:
+      - "mysql"
+  mysql:
+    image: mysql:flask
+    container_name: mysql
+    networks:
+      - backend
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup/mysql_setup:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${root_pass}
+
+
+networks:
+    backend:
+
