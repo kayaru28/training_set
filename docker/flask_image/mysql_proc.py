@@ -49,16 +49,15 @@ def getEngineRps():
 
     return engine
 
+
 rps_engine = getEngineRps()
+Base=declarative_base()
 
-
-Base=declarative_base(bind=rps_engine)
-
-class BattleHistory():
+class BattleHistory(Base):
     __tablename__ = "battle_history"
 
-    time        = Column(TIMESTAMP)
-    id          = Column(Integer)
+    time        = Column(TIMESTAMP, primary_key=True)
+    id          = Column(Integer, primary_key=True)
     name        = Column(VARCHAR(10))
     choice_id   = Column(Integer)
     result      = Column(VARCHAR(10))

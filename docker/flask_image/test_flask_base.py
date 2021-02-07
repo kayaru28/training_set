@@ -26,7 +26,14 @@ def test_root_rps():
     assert b'<p><input type="submit" value="duel"><input type="reset" value="reset"></p>' in result.data
     assert b'</form> ' in result.data
 
+def test_root_rps_with_settion():
+    flaskb.app.config['TESTING'] = True
+    client  = flaskb.app.test_client()
+    with client.session_transaction() as sess:
+        sess['user_name'] = "testname"
+    result = client.get('/rps')
 
+    assert b'name : <input type="text" name="name" value=testname />' in result.data
 
 
 
