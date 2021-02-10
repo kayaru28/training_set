@@ -34,11 +34,11 @@ sqlalchemy_logger.addHandler(get_handler)
 #-
 #------------------------------------------------------------------------------
 
-def getEngineKey(db_name):
-    return "mysql://"+ROOT_USER+":"+ROOT_PASS+"@"+ROOT_HOST+"/" + db_name
+def getEngineKey(user,password,host,db_name):
+    return "mysql://"+user+":"+password+"@"+host+"/" + db_name
 
 def getEngineRps():
-    engine_key = getEngineKey(DB_NAME_RPS)
+    engine_key = getEngineKey(ROOT_USER,ROOT_PASS,ROOT_HOST,DB_NAME_RPS)
     engine=create_engine(engine_key)
 
     return engine
