@@ -1,9 +1,8 @@
 version: '3'
 services:
 
-  flask-app:
+  flasktest:
     image: test:flask
-    container_name: flasktest
     networks:
       - backend
     volumes:

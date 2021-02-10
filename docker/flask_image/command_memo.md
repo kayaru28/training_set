@@ -25,7 +25,7 @@ http://10.255.255.1:8081/rpsapi?name=kayaru&value=0
 docker build -t test:flask -f dockerfile_test_flask.df .
 
 
-docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask test:flask
+docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net test_backend test:flask
 
 
 # df for sql
