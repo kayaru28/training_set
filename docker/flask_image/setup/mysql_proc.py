@@ -37,36 +37,35 @@ sqlalchemy_logger.addHandler(get_handler)
 def getEngineKey(db_name):
     return "mysql://"+ROOT_USER+":"+ROOT_PASS+"@"+ROOT_HOST+"/" + db_name
 
-class BattleResult():
-    time_now = datetime.datetime.now()
-    name = "NA"
-    choice_id = 0
-    result = ""
-
 def getEngineRps():
     engine_key = getEngineKey(DB_NAME_RPS)
     engine=create_engine(engine_key)
 
     return engine
 
+def getSession(engine):
+    SessionClass=sessionmaker(engine)
+    session=SessionClass()
+    return session
 
 rps_engine = getEngineRps()
 Base=declarative_base()
 
+
+class BattleResult():
+    time_now = datetime.datetime.now()
+    name = "NA"
+    choice_id = 0
+    result = ""
+
 class BattleHistory(Base):
     __tablename__ = "battle_history"
-
     time        = Column(TIMESTAMP, primary_key=True)
     id          = Column(Integer, primary_key=True)
     name        = Column(VARCHAR(10))
     choice_id   = Column(Integer)
     result      = Column(VARCHAR(10))
 
-
-def getSession(engine):
-    SessionClass=sessionmaker(engine)
-    session=SessionClass()
-    return session
 
 #------------------------------------------------------------------------------
 #-

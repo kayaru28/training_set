@@ -10,7 +10,6 @@ services:
       - /root/dockerfiles/001_python_tool/setup:/root/setup:ro
     depends_on:
       - "mysql"
-    command: /bin/bash
   mysql:
     image: mysql:flask
     container_name: mysql
