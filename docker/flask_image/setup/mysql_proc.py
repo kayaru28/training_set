@@ -51,7 +51,6 @@ def getSession(engine):
 rps_engine = getEngineRps()
 Base=declarative_base()
 
-
 class BattleResult():
     time_now = datetime.datetime.now()
     name = "NA"
@@ -115,7 +114,6 @@ def rpsInsert(br:BattleResult ):
 
 def recordedBattleResult(name,choice_id,result):
     br=BattleResult()
-    br.time_now = datetime.datetime.now()
     br.name = name
     br.choice_id = choice_id
     br.result = result
