@@ -77,7 +77,7 @@ def rpsResultpage():
 
 @app.route("/ratio", methods=["GET", "POST"])
 def ratiopage():
-    battle_count = sql.rpsGetBattleCount()
+    battle_count = sql.rpsGetBattleCountAll()
     win_count = sql.rpsGetBattleCountForResult("win")
     win_ratio = float(win_count) / battle_count
     return "your win ratio is " + formatRatio(win_ratio)

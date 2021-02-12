@@ -27,6 +27,8 @@ sqlalchemy_logger = logging.getLogger('sqlalchemy.engine')
 sqlalchemy_logger.setLevel(logging.INFO)
 get_handler = logging.FileHandler(LOG_FILE)
 sqlalchemy_logger.addHandler(get_handler)
+#         logger.info('function error @ rpsCount')
+
 
 #------------------------------------------------------------------------------
 #-
@@ -34,22 +36,18 @@ sqlalchemy_logger.addHandler(get_handler)
 #-
 #------------------------------------------------------------------------------
 
+# general -------------------------
+
+Base=declarative_base()
+
 def getEngineKey(user,password,host,db_name):
     return "mysql://"+user+":"+password+"@"+host+"/" + db_name
 
-def getEngineRps():
-    engine_key = getEngineKey(ROOT_USER,ROOT_PASS,ROOT_HOST,DB_NAME_RPS)
-    engine=create_engine(engine_key)
-
-    return engine
 
 def getSession(engine):
     SessionClass=sessionmaker(engine)
     session=SessionClass()
     return session
-
-rps_engine = getEngineRps()
-Base=declarative_base()
 
 class BattleResult():
     time_now = datetime.datetime.now()
@@ -64,6 +62,35 @@ class BattleHistory(Base):
     name        = Column(VARCHAR(10))
     choice_id   = Column(Integer)
     result      = Column(VARCHAR(10))
+
+# spacial -------------------------
+
+def getEngineRps():
+    engine_key = getEngineKey(ROOT_USER,ROOT_PASS,ROOT_HOST,DB_NAME_RPS)
+    engine=create_engine(engine_key)
+
+    return engine
+
+rps_engine = getEngineRps()
+
+
+def rpsCount(**kwargs):
+    session = getSession(rps_engine)
+
+    if( "result" in kwargs):
+        bh_result = kwargs["result"]
+        count_total = session.query(
+            func.count(BattleHistory.result)
+        ).filter(
+            BattleHistory.result==bh_result
+        ).first()
+    else:
+        count_total = session.query(
+            func.count(BattleHistory.result)
+        ).first()
+
+    session.close()
+    return count_total[0]
 
 
 #------------------------------------------------------------------------------
@@ -83,20 +110,12 @@ def getRandomId9():
 #------------------------------------------------------------------------------
 
 
-def rpsGetBattleCount():
-    session = getSession(rps_engine)
-    count_total = session.query(func.count(BattleHistory.result)).first()
-    session.close()
-    return count_total[0]
-
+def rpsGetBattleCountAll():
+    return rpsCount()
+    
 def rpsGetBattleCountForResult(res):
-    session = getSession(rps_engine)
-    count_total = session.query(func.count(BattleHistory.result)) \
-    .filter(BattleHistory.result==res).first()
-    session.close()
-    return count_total[0]
-
-
+    return rpsCount(result=res)
+    
 def rpsInsert(br:BattleResult ):
     session = getSession(rps_engine)
     tmpid = getRandomId9()
@@ -122,7 +141,7 @@ def recordedBattleResult(name,choice_id,result):
 
 if __name__ == '__main__':
     #recordedBattleResult("SS",1,"win")
-    battle_count = rpsGetBattleCount()
+    battle_count = rpsGetBattleCountAll()
     win_count = rpsGetBattleCountForResult("win")
     victory_ratio = float(win_count) / battle_count
     print("your victory ratio is " +  format(victory_ratio, '.2f'))

@@ -8,10 +8,10 @@ services:
     volumes:
       - /root/dockerfiles/001_python_tool/setup:/root/setup:ro
     depends_on:
-      - "mysqltest"
+      - "mysql"
   mysql:
     image: mysql:flask
-    container_name: mysqltest
+    container_name: mysql
     networks:
       - backend
     volumes:
