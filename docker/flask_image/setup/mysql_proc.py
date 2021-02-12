@@ -88,6 +88,19 @@ def rpsCount(**kwargs):
     session.close()
     return count_total[0]
 
+def rpsInsert(br:BattleResult ):
+    session = getSession(rps_engine)
+    tmpid = getRandomId9()
+    insert_battle_history=BattleHistory(
+        id          = tmpid,
+        time        = br.time_now,
+        name        = br.name,
+        choice_id   = br.choice_id,
+        result      = br.result
+    )
+    session.add(insert_battle_history)
+    session.commit()
+    session.close()
 
 #------------------------------------------------------------------------------
 #-
@@ -112,20 +125,6 @@ def rpsGetBattleCountAll():
 def rpsGetBattleCountForResult(res):
     return rpsCount(result=res)
     
-def rpsInsert(br:BattleResult ):
-    session = getSession(rps_engine)
-    tmpid = getRandomId9()
-    insert_battle_history=BattleHistory(
-        id          = tmpid,
-        time        = br.time_now,
-        name        = br.name,
-        choice_id   = br.choice_id,
-        result      = br.result
-    )
-    session.add(insert_battle_history)
-    session.commit()
-    session.close()
-
 def recordedBattleResult(name,choice_id,result):
     br=BattleResult()
     br.name = name
