@@ -83,14 +83,13 @@ def getRandomId9():
 #------------------------------------------------------------------------------
 
 
-def getBattleCount():
+def rpsGetBattleCount():
     session = getSession(rps_engine)
     count_total = session.query(func.count(BattleHistory.result)).first()
-    #.filter(battle_history.result=="win")
     session.close()
     return count_total[0]
 
-def getBattleCountForResult(res):
+def rpsGetBattleCountForResult(res):
     session = getSession(rps_engine)
     count_total = session.query(func.count(BattleHistory.result)) \
     .filter(BattleHistory.result==res).first()
@@ -123,8 +122,8 @@ def recordedBattleResult(name,choice_id,result):
 
 if __name__ == '__main__':
     #recordedBattleResult("SS",1,"win")
-    battle_count = getBattleCount()
-    win_count = getBattleCountForResult("win")
+    battle_count = rpsGetBattleCount()
+    win_count = rpsGetBattleCountForResult("win")
     victory_ratio = float(win_count) / battle_count
     print("your victory ratio is " +  format(victory_ratio, '.2f'))
     
