@@ -1,7 +1,6 @@
 # trouble shoot
 
 docker commit { コンテナID } { コンテナ名を適当に付ける }
-
 docker run --rm -it { 適当につけたコンテナ名 } sh
 
 
