@@ -77,17 +77,13 @@ rps_engine = getEngineRps()
 def rpsCount(**kwargs):
     session = getSession(rps_engine)
 
+    count_query = session.query(func.count(BattleHistory.result))
+
     if( "result" in kwargs):
         bh_result = kwargs["result"]
-        count_total = session.query(
-            func.count(BattleHistory.result)
-        ).filter(
-            BattleHistory.result==bh_result
-        ).first()
-    else:
-        count_total = session.query(
-            func.count(BattleHistory.result)
-        ).first()
+        count_query = count_query.filter(BattleHistory.result==bh_result)
+
+    count_total = count_query.first()
 
     session.close()
     return count_total[0]
