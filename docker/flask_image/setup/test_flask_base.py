@@ -69,12 +69,15 @@ def test_judgeBattleResult(
     assert flaskb.judgeBattleResult(client_choice,machine_choice) == expectresult
 
 def test_arg_procRpsBattle(mocker):
-    judgeBattleResult = mocker.patch('flaskb.judgeBattleResult')
-    recordedBattleResult = mocker.patch('flaskb.sql.recordedBattleResult')
+    judgeBattleResult = mocker.patch('flask_base.judgeBattleResult')
+    judgeBattleResult.return_value = "win"
+    recordedBattleResult = mocker.patch('flask_base.sql.recordedBattleResult')
 
-    result_html = flaskb.procRpsBattle(client_name,client_choice)
+    result =  flaskb.procRpsBattle("testname",0)
 
-
+    assert result in ("win","loose","draw")
+    assert judgeBattleResult.call_count == 1
+    assert recordedBattleResult.call_count == 1
 
 #------------------------------------------------------------------------------
 #-
@@ -95,7 +98,7 @@ def test_root_rps():
     client  = flaskb.app.test_client()
     result = client.get('/rps')
     assert b'<form action="/rps_result" method="post">' in result.data
-    assert b'name : <input type="text" name="name" value=noname />' in result.data
+    assert b'name : <input type="text" name="name" value="noname" />' in result.data
     assert b'<fieldset>' in result.data
     assert b'<legend>Rock-paper-scissors</legend>' in result.data
     assert b'<p><label><input type="radio" name="value" value="0">rock</label></p>' in result.data
@@ -112,7 +115,7 @@ def test_root_rps_with_settion():
         sess['user_name'] = "testname"
     result = client.get('/rps')
 
-    assert b'name : <input type="text" name="name" value=testname />' in result.data
+    assert b'name : <input type="text" name="name" value="testname" />' in result.data
 
 
 

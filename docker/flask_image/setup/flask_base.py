@@ -57,13 +57,10 @@ def judgeBattleResult(client_choice,machine_choice):
 def procRpsBattle(client_name,client_choice):
 
     result = judgeBattleResult(client_choice, getMachineChoice() )
+
     sql.recordedBattleResult(client_name,client_choice,result)
 
-    return render_template('rps_result.html'
-        , get_val=client_choice
-        , duel_val=calcMachineChoiceFromResult(client_choice,result)
-        , res = result
-    )
+    return result
 
 
 
@@ -91,17 +88,26 @@ def rpspage():
 def rpsapi():
     client_name = request.args.get('name', default='noname')
     client_choice = request.args.get('value', default=0, type=int)
-
-    return procRpsBattle(client_name,client_choice)
+    result = procRpsBattle(client_name,client_choice)
+    return render_template('rps_result.html'
+        , get_val=client_choice
+        , duel_val=calcMachineChoiceFromResult(client_choice,result)
+        , res = result
+    )
     
 @app.route("/rps_result", methods=["GET", "POST"])
 def rpsResultpage():
     client_name = request.form["name"]
     client_choice = int(request.form["value"])
+    result = procRpsBattle(client_name,client_choice)
 
     session['user_name'] = client_name
 
-    return procRpsBattle(client_name,client_choice)
+    return render_template('rps_result.html'
+        , get_val=client_choice
+        , duel_val=calcMachineChoiceFromResult(client_choice,result)
+        , res = result
+    )
 
 @app.route("/ratio", methods=["GET", "POST"])
 def ratiopage():
