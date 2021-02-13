@@ -1,3 +1,7 @@
+
+alias dpaq='docker ps -a -q'
+
+
 # trouble shoot
 
 docker commit { コンテナID } { コンテナ名を適当に付ける }

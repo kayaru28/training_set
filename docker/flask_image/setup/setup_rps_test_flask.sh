@@ -7,5 +7,5 @@ rm -r -f templates
 cp /root/setup/*.py / # for test
 cp -r /root/setup/templates / # for test
 
-pytest -v test_mysql_proc.py
-pytest -v test_flask_base.py
+pytest -v -l test_mysql_proc.py
+pytest -v -l test_flask_base.py

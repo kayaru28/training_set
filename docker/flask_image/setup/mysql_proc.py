@@ -112,6 +112,7 @@ def rpsInsert(br:BattleResult ):
 def getRandomId9():
     return int(random.random()*1000000000)
 
+
 #------------------------------------------------------------------------------
 #-
 #- Proc function

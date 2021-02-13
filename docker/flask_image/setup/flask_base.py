@@ -19,21 +19,61 @@ werkzeug_logger.addHandler(get_handler)
 def formatRatio(ratio):
     return format(ratio, '.2f')
 
-def duel(get_name,get_val):
-    duel_val = int(random.random()*3)
-    if get_val == duel_val:
-        res = "draw"
-    elif get_val == 0 and duel_val == 2:
-        res = "win"
-    elif get_val > duel_val:
-        res = "win"
+def getMachineChoice():
+    return int(random.random()*3)
+
+def calcMachineChoiceFromResult(client_choice,result):
+    if result == "draw":
+        return client_choice
+    elif client_choice == 0:
+        if result == "win":
+            return 2
+        elif result == "loose":
+            return 1
+    elif client_choice == 1:
+        if result == "win":
+            return 0
+        elif result == "loose":
+            return 2
+    elif client_choice == 2:
+        if result == "win":
+            return 1
+        elif result == "loose":
+            return 0
+    return -1
+
+def judgeBattleResult(client_choice,machine_choice):
+    if client_choice == machine_choice:
+        return "draw"
+    elif client_choice == 0 and machine_choice == 2:
+        return "win"
+    elif client_choice == 2 and machine_choice == 0:
+        return "loose"
+    elif client_choice > machine_choice:
+        return "win"
     else:
-        res = "loose"
+        return "loose"
 
-    duel_time = datetime.datetime.today().strftime("%Y/%m/%d/%H/%M/%S")
-    sql.recordedBattleResult(get_name,get_val,res)
+def procRpsBattle(client_name,client_choice):
 
-    return res,duel_val,duel_time
+    result = judgeBattleResult(client_choice, getMachineChoice() )
+    sql.recordedBattleResult(client_name,client_choice,result)
+
+    return render_template('rps_result.html'
+        , get_val=client_choice
+        , duel_val=calcMachineChoiceFromResult(client_choice,result)
+        , res = result
+    )
+
+
+
+#------------------------------------------------------------------------------
+#-
+#- Rootting
+#-
+#------------------------------------------------------------------------------
+
+
 
 @app.route("/") 
 def main():
@@ -49,31 +89,19 @@ def rpspage():
 
 @app.route("/rpsapi", methods=["GET"])
 def rpsapi():
-    get_name = request.args.get('name', default='noname')
-    get_val = request.args.get('value', default=0, type=int)
-    res,duel_val,duel_time = duel(get_name,get_val)
-    return render_template('rps_result.html'
-        , get_val=get_val
-        , duel_val=duel_val
-        , res = res
-        , duel_time=duel_time
-    )
+    client_name = request.args.get('name', default='noname')
+    client_choice = request.args.get('value', default=0, type=int)
+
+    return procRpsBattle(client_name,client_choice)
     
 @app.route("/rps_result", methods=["GET", "POST"])
 def rpsResultpage():
-    get_name = request.form["name"]
-    get_val = int(request.form["value"])
+    client_name = request.form["name"]
+    client_choice = int(request.form["value"])
 
-    session['user_name'] = get_name
+    session['user_name'] = client_name
 
-    res,duel_val,duel_time = duel(get_name,get_val)
-
-    return render_template('rps_result.html'
-        , get_val=get_val
-        , duel_val=duel_val
-        , res = res
-        , duel_time=duel_time
-    )
+    return procRpsBattle(client_name,client_choice)
 
 @app.route("/ratio", methods=["GET", "POST"])
 def ratiopage():
