@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  flask-app:
+  app:
     image: python36:flask
     container_name: flask
     networks:
@@ -21,8 +21,16 @@ services:
       - /root/dockerfiles/001_python_tool/setup/mysql_setup:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: ${root_pass}
-
-
+    depends_on:
+      - "fluentd"
+  fluentd:
+    image: fluentd:flask
+    container_name: fluentd
+    networks:
+      - backend
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/setup:ro
+      - /root/dockerfiles/001_python_tool/fluentd:/fluentd
 networks:
     backend:
 

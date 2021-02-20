@@ -1,5 +1,5 @@
 
-alias dpaq='docker ps -a -q'
+alias dpq='docker ps -a -q'
 
 
 # trouble shoot
@@ -10,6 +10,7 @@ docker run --rm -it { 適当につけたコンテナ名 } sh
 
 # docker compose
 docker-compose up -d
+docker-compose down
 
 # df for flask app
 export flask_ver="1.0"
@@ -55,6 +56,27 @@ docker run -it -v /root/dockerfiles/001_python_tool/setup:/setup:ro --net flask 
 
 docker run -it -e XPACK_MONITORING_ENABLED=false docker.elastic.co/logstash/logsta
 sh:6.8.2
+
+# df for fluentd
+docker build -t fluentd:flask -f dockerfile_fluentd.df .
+
+docker  exec -it fluentd sh
+curl -X POST -d 'json={"json":"message"}' http://fluentd:24280/debug.test
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

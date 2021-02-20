@@ -1,0 +1,4 @@
+FROM fluent/fluentd:latest
+
+EXPOSE 24220 24280
+
