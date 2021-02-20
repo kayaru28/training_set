@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<title>rps_form</title>
+<script>
+
+</script></head>
+<body>
+    <form action="/rps_result" method="post">
+        name : <input type="text" name="name" value="{{user_name}}" />
+        <fieldset>
+        <legend>Rock-paper-scissors</legend>
+        <p><label><input type="radio" name="value" value="0">rock</label></p>
+        <p><label><input type="radio" name="value" value="1">paper</label></p>
+        <p><label><input type="radio" name="value" value="2">scissors</label></p>
+        </fieldset>
+        <p><input type="submit" value="duel"><input type="reset" value="reset"></p>
+    </form> 
+</body>
+</html>
+

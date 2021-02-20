@@ -1,0 +1,31 @@
+FROM centos:7
+
+RUN yum install python3 -y
+
+RUN pip3 install --upgrade pip
+RUN pip3 install flask
+RUN pip3 install datetime
+RUN pip3 install sqlalchemy
+
+RUN yum install wget -y
+RUN yum install unzip -y
+RUN yum install iproute -y
+
+RUN yum install python-devel mysql-devel -y
+RUN yum install python3-devel -y
+RUN yum install gcc -y
+RUN pip3 install mysqlclient
+
+
+ENV LC_ALL en_US.UTF-8
+ENV FLASK_APP /flask_base.py
+
+ENTRYPOINT  source /root/setup/setup_rps_flask.sh
+
+
+
+
+
+
+
+
