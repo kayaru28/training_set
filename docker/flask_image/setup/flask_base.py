@@ -6,7 +6,8 @@ import random
 import datetime
 from os import environ
 
-LOG_FILE = '/applog_flask.log'
+LOG_DIR  = "/log"
+LOG_FILE = LOG_DIR + "/applog_flask.log"
 
 app = Flask(__name__)  
 app.secret_key = environ['root_password']

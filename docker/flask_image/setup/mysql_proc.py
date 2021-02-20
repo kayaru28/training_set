@@ -14,7 +14,9 @@ ROOT_USER = "root"
 ROOT_PASS = environ['root_password']
 ROOT_HOST = "mysql"
 DB_NAME_RPS = "rps"
-LOG_FILE = '/applog_sqlalchemy.log'
+
+LOG_DIR  = "/log"
+LOG_FILE = LOG_DIR + "/applog_sqlalchemy.log"
 
 #------------------------------------------------------------------------------
 #-
