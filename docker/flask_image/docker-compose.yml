@@ -7,7 +7,7 @@ services:
     networks:
       - backend
     volumes:
-      - /root/dockerfiles/001_python_tool/setup:/root/setup:ro
+      - /root/dockerfiles/001_python_tool/setup:/setup:ro
     ports:
       - 8080:5000
     depends_on:

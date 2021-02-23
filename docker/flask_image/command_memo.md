@@ -20,6 +20,7 @@ export conname="flask"
 docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro  -p 8081:8080 --net flask --name ${conname} ${dfname}
 
 docker build -t ${dfname} -f dockerfile_python.df .
+docker build -t python36:flask -f dockerfile_python.df .
 
 
 ## test
@@ -62,6 +63,7 @@ docker build -t fluentd:flask -f dockerfile_fluentd.df .
 
 docker  exec -it fluentd sh
 curl -X POST -d 'json={"json":"message"}' http://fluentd:24280/debug.test
+curl -X POST -F upfile=@/test_cron.log http://fluentd:24280/debug_test
 
 
 
