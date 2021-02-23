@@ -7,39 +7,6 @@ import datetime
 from os import environ
 import fluent
 
-
-
-from logging import Handler
-import socket
-from fluent import sender
-
-class FlaskFluentHandler(Handler):
-    def __init__(
-            self, tag, host='localhost', port=24220, timeout=3.0,
-            verbose=False):
-        Handler.__init__(self)
-        self.tag = tag
-        self.sender = sender.FluentSender(tag,
-                                          host=host, port=port,
-                                          timeout=timeout, verbose=verbose)
-        self.hostname = socket.gethostname()
-
-    def emit(self, record):
-        if record.levelno < self.level:
-            return
-        msg = self.format(record)
-        data = {
-            'host': self.hostname,
-            'name': record.name,
-            'levelname': record.levelname,
-            'process': record.process,
-            'message': msg,
-        }
-        self.sender.emit(None, data)
-
-    def _close(self):
-        self.sender._close()
-
 LOG_DIR  = "/log"
 LOG_FILE = LOG_DIR + "/applog_flask.log"
 
@@ -47,8 +14,9 @@ app = Flask(__name__)
 app.secret_key = environ['root_password']
 
 file_handler = FileHandler(LOG_FILE)
+
+from flask_fluentd_handler import FlaskFluentHandler
 fluent_handler = FlaskFluentHandler(tag='flask-app', host='fluentd', port=24220)
-fluent_handler
 
 werkzeug_logger = getLogger("werkzeug")
 werkzeug_logger.addHandler(file_handler)
