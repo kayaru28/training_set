@@ -1,0 +1,6 @@
+FROM centos:7
+
+RUN yum install haproxy -y
+RUN yum install iproute -y
+
+CMD  source /setup/setup_rps_haproxy.sh
