@@ -1,15 +1,37 @@
 version: '3'
 services:
-
-  app:
+  lb:
+    image: haproxy:flask
+    container_name: lb
+    networks:
+      - backend
+    ports:
+      - 8080:8080
+    expose:
+      - '8080'
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/setup:ro
+    depends_on:
+      - "app001"
+      - "app002"
+  app001:
     image: python36:flask
-    container_name: flask
+    container_name: flask001
+    hostname: flask001
     networks:
       - backend
     volumes:
       - /root/dockerfiles/001_python_tool/setup:/setup:ro
-    ports:
-      - 8080:5000
+    depends_on:
+      - "mysql"
+  app002:
+    image: python36:flask
+    container_name: flask002
+    hostname: flask002
+    networks:
+      - backend
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/setup:ro
     depends_on:
       - "mysql"
   mysql:

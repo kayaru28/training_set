@@ -66,6 +66,8 @@ curl -X POST -d 'json={"json":"message"}' http://fluentd:24280/debug.test
 curl -X POST -F upfile=@/test_cron.log http://fluentd:24280/debug_test
 
 
+# df for haproxy
+docker build -t haproxy:flask -f dockerfile_haproxy.df .
 
 
 
