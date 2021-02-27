@@ -28,6 +28,8 @@ services:
     container_name: fluentd
     networks:
       - backend
+    expose:
+      - '24221'
     volumes:
       - /root/dockerfiles/001_python_tool/setup:/setup:ro
       - /root/dockerfiles/001_python_tool/fluentd:/fluentd

@@ -16,7 +16,9 @@ app.secret_key = environ['root_password']
 file_handler = FileHandler(LOG_FILE)
 
 from flask_fluentd_handler import FlaskFluentHandler
-fluent_handler = FlaskFluentHandler(tag='flask-app', host='fluentd', port=24220)
+FLUENTD_TAG  = 'flask-app'
+FLUENTD_PORT = 24220
+fluent_handler = FlaskFluentHandler(tag=FLUENTD_TAG, host='fluentd', port=FLUENTD_PORT)
 
 werkzeug_logger = getLogger("werkzeug")
 werkzeug_logger.addHandler(file_handler)

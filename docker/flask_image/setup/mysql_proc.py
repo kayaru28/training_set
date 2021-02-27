@@ -24,12 +24,19 @@ LOG_FILE = LOG_DIR + "/applog_sqlalchemy.log"
 #-
 #------------------------------------------------------------------------------
 
+from flask_fluentd_handler import FlaskFluentHandler
+FLUENTD_TAG  = 'sql-alchemy'
+FLUENTD_PORT = 24221
+fluent_handler = FlaskFluentHandler(tag=FLUENTD_TAG, host='fluentd', port=FLUENTD_PORT)
+
 logging.basicConfig()
 sqlalchemy_logger = logging.getLogger('sqlalchemy.engine')
 sqlalchemy_logger.setLevel(logging.INFO)
 get_handler = logging.FileHandler(LOG_FILE)
+
 sqlalchemy_logger.addHandler(get_handler)
-#         logger.info('function error @ rpsCount')
+sqlalchemy_logger.addHandler(fluent_handler)
+
 
 
 #------------------------------------------------------------------------------
