@@ -15,14 +15,16 @@ ROOT_PASS = environ['root_password']
 ROOT_HOST = "mysql"
 DB_NAME_RPS = "rps"
 
-LOG_DIR  = "/log"
-LOG_FILE = LOG_DIR + "/applog_sqlalchemy.log"
+
 
 #------------------------------------------------------------------------------
 #-
 #- Logger
 #-
 #------------------------------------------------------------------------------
+
+LOG_DIR  = "/log"
+LOG_FILE = LOG_DIR + "/applog_sqlalchemy.log"
 
 from flask_fluentd_handler import FlaskFluentHandler
 FLUENTD_TAG  = 'sql-alchemy'
@@ -72,6 +74,12 @@ class BattleHistory(Base):
     choice_id   = Column(Integer)
     result      = Column(VARCHAR(10))
 
+
+class BattleCount(Base):
+    __tablename__ = "battle_count"
+    name           = Column(VARCHAR(10))
+    battle_count   = Column(Integer)
+
 # spacial -------------------------
 
 def getEngineRps():
@@ -97,7 +105,13 @@ def rpsCount(**kwargs):
     session.close()
     return count_total[0]
 
-def rpsInsert(br:BattleResult ):
+def rpsSelectBattleCountForName(username):
+    session = getSession(rps_engine)
+    battle_count = session.query(BattleCount.battle_count).filter(BattleCount.name==username).first()
+    session.close()
+    return battle_count[0]
+
+def rpsInsertBattleResult(br:BattleResult ):
     session = getSession(rps_engine)
     tmpid = getRandomId9()
     insert_battle_history=BattleHistory(
@@ -140,7 +154,7 @@ def recordedBattleResult(name,choice_id,result):
     br.name = name
     br.choice_id = choice_id
     br.result = result
-    rpsInsert(br) 
+    rpsInsertBattleResult(br) 
 
 
 
