@@ -14,7 +14,7 @@ ALTER TABLE rps.battle_history ADD PRIMARY KEY (time,id);
 
 CREATE TABLE rps.battle_count(
         name varchar(10),
-        count int
+        battle_count int
 ) DEFAULT CHARACTER SET= utf8mb4;
 
 ALTER TABLE rps.battle_count ADD PRIMARY KEY (name);

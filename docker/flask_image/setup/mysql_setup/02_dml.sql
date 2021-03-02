@@ -1198,3 +1198,6 @@ INSERT INTO rps.battle_history VALUES('2021-02-23 06:15:36' , 995802853 , 'taich
 INSERT INTO rps.battle_history VALUES('2021-02-23 06:15:36' , 996836090 , 'taichi' , 1 , 'win' );
 INSERT INTO rps.battle_history VALUES('2021-02-23 06:15:36' , 998529661 , 'yamato' , 1 , 'draw' );
 INSERT INTO rps.battle_history VALUES('2021-02-23 06:15:36' , 999041089 , 'yamato' , 1 , 'loose' );
+
+INSERT INTO rps.battle_count(name,battle_count) SELECT name, COUNT(*) FROM rps.battle_history GROUP BY name;
+
