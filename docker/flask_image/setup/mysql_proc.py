@@ -77,7 +77,7 @@ class BattleHistory(Base):
 
 class BattleCount(Base):
     __tablename__ = "battle_count"
-    name           = Column(VARCHAR(10))
+    name           = Column(VARCHAR(10), primary_key=True)
     battle_count   = Column(Integer)
 
 # spacial -------------------------
