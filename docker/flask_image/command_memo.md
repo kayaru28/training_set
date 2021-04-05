@@ -71,12 +71,15 @@ docker build -t haproxy:flask -f dockerfile_haproxy.df .
 
 
 
+# elastoc
+docker run -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.12.0
 
+curl -X GET "localhost:9200/_cat/nodes?v&pretty"
+curl -X GET "localhost:9200/_cat/health?v&pretty"
+curl -X POST "localhost:9200/my_index/my_doctype/" -H "Content-Type:application/json" -d '{"name":"taro","state":"test"}'
+curl -X POST "localhost:9200/my_index/my_doctype/" -H "Content-Type:application/json" -d '{"name":"jiro","state":"test","crea":"test2"}'
 
-
-
-
-
+curl -X GET "localhost:9200/my_index/my_doctype/qqmMongBOsh592scjhGS/_source?pretty"
 
 
 
