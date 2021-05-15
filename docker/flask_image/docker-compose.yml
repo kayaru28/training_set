@@ -51,7 +51,9 @@ services:
     networks:
       - backend
     expose: # default port 5140/tcp,24224/tcp
+      - '24220'
       - '24221'
+      - '24280'
     volumes:
       - /root/dockerfiles/001_python_tool/setup:/setup:ro
       - /root/dockerfiles/001_python_tool/fluentd:/fluentd
