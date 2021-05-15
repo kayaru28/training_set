@@ -35,7 +35,7 @@ services:
     depends_on:
       - "mysql"
   mysql:
-    image: mysql:flask
+    image: mysql:flask 
     container_name: mysql
     networks:
       - backend
@@ -50,7 +50,7 @@ services:
     container_name: fluentd
     networks:
       - backend
-    expose:
+    expose: # default port 5140/tcp,24224/tcp
       - '24221'
     volumes:
       - /root/dockerfiles/001_python_tool/setup:/setup:ro
