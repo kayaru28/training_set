@@ -50,7 +50,8 @@ services:
     container_name: fluentd
     networks:
       - backend
-    expose: # default port 5140/tcp,24224/tcp
+    expose:
+      # default port 5140/tcp,24224/tcp
       - '24220'
       - '24221'
       - '24280'
