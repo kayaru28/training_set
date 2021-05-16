@@ -71,8 +71,22 @@ docker build -t haproxy:flask -f dockerfile_haproxy.df .
 
 
 
-# elastoc
+# elastuc
+docker build -t elasticsearch:flask -f dockerfile_elasticsearch.df .
+
 docker run -d -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.12.0
+
+## commands
+### cluster health check
+curl localhost:9200/_cluster/health?pretty=true
+curl localhost:9200/_cat/nodes
+
+### index check
+curl localhost:9200/_aliases?pretty
+curl localhost:9200/_cat/count/{index}
+
+### cluster health check
+
 
 curl -X GET "localhost:9200/_cat/nodes?v&pretty"
 curl -X GET "localhost:9200/_cat/health?v&pretty"
@@ -81,10 +95,8 @@ curl -X POST "localhost:9200/my_index/my_doctype/" -H "Content-Type:application/
 
 curl -X GET "localhost:9200/my_index/my_doctype/qqmMongBOsh592scjhGS/_source?pretty"
 
-
-
-
-
+## reference
+https://qiita.com/ryurock/items/b9c51435bcc617d7c6be
 
 
 # df for sql Legacy

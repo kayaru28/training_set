@@ -58,6 +58,29 @@ services:
     volumes:
       - /root/dockerfiles/001_python_tool/setup:/setup:ro
       - /root/dockerfiles/001_python_tool/fluentd:/fluentd
+  es01:
+    image: elasticsearch:flask
+    container_name: elasticsearch001
+    environment:
+      - discovery.type=single-node
+      #- node.name=elasticsearch001
+      #- cluster.name=elasticsearch-docker-cluster
+      #- discovery.seed_hosts=es02,es03
+      #- cluster.initial_master_nodes=elasticsearch001 #,es02,es03
+      #- bootstrap.memory_lock=true
+      #- "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    #volumes:
+    #  - /root/dockerfiles/001_python_tool/elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    expose:
+    - '9200'    
+    networks:
+      - backend
 networks:
     backend:
 
