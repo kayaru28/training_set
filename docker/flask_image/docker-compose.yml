@@ -62,13 +62,13 @@ services:
     image: elasticsearch:flask
     container_name: elasticsearch001
     environment:
-      - discovery.type=single-node
-      #- node.name=elasticsearch001
-      #- cluster.name=elasticsearch-docker-cluster
-      #- discovery.seed_hosts=es02,es03
-      #- cluster.initial_master_nodes=elasticsearch001 #,es02,es03
-      #- bootstrap.memory_lock=true
-      #- "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      #- discovery.type=single-node
+      - node.name=elasticsearch001
+      - cluster.name=elasticsearch-cluster
+      - discovery.seed_hosts=elasticsearch002 #,es03
+      - cluster.initial_master_nodes=elasticsearch001,elasticsearch002 #,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
     ulimits:
       memlock:
         soft: -1
@@ -79,6 +79,25 @@ services:
       - 9200:9200
     expose:
     - '9200'    
+    networks:
+      - backend
+  es02:
+    image: elasticsearch:flask
+    container_name: elasticsearch002
+    environment:
+      #- discovery.type=single-node
+      - node.name=elasticsearch002
+      - cluster.name=elasticsearch-cluster
+      - discovery.seed_hosts=elasticsearch001
+      - cluster.initial_master_nodes=elasticsearch001,elasticsearch002 #,es02,es03
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    #volumes:
+    #  - /root/dockerfiles/001_python_tool/elasticsearch/data:/usr/share/elasticsearch/data
     networks:
       - backend
 networks:
