@@ -91,9 +91,6 @@ curl localhost:9200/_cat/count/{index}
 
 ### cluster health check
 
-
-curl -X GET "localhost:9200/_cat/nodes?v&pretty"
-curl -X GET "localhost:9200/_cat/health?v&pretty"
 curl -X POST "localhost:9200/my_index/my_doctype/" -H "Content-Type:application/json" -d '{"name":"taro","state":"test"}'
 curl -X POST "localhost:9200/my_index/my_doctype/" -H "Content-Type:application/json" -d '{"name":"jiro","state":"test","crea":"test2"}'
 
