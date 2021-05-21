@@ -98,6 +98,8 @@ services:
         hard: -1
     #volumes:
     #  - /root/dockerfiles/001_python_tool/elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9201:9200
     networks:
       - backend
   es03:
@@ -117,6 +119,8 @@ services:
         hard: -1
     #volumes:
     #  - /root/dockerfiles/001_python_tool/elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9202:9200
     networks:
       - backend
   kibana:
