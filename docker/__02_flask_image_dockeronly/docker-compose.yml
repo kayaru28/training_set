@@ -1,0 +1,145 @@
+version: '3'
+services:
+  lb:
+    image: haproxy:flask
+    container_name: lb
+    networks:
+      - backend
+    ports:
+      - 8080:8080
+    expose:
+      - '8080'
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/setup:ro
+    depends_on:
+      - "app001"
+      - "app002"
+  app001:
+    image: python36:flask
+    container_name: flask001
+    hostname: flask001
+    networks:
+      - backend
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/setup:ro
+    depends_on:
+      - "mysql"
+  app002:
+    image: python36:flask
+    container_name: flask002
+    hostname: flask002
+    networks:
+      - backend
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/setup:ro
+    depends_on:
+      - "mysql"
+  mysql:
+    image: mysql:flask 
+    container_name: mysql
+    networks:
+      - backend
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup/mysql_setup:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${root_pass}
+    depends_on:
+      - "fluentd"
+  fluentd:
+    image: fluentd:flask
+    container_name: fluentd
+    networks:
+      - backend
+    expose:
+      # default port 5140/tcp,24224/tcp
+      - '24220'
+      - '24221'
+      - '24280'
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/setup:ro
+      - /root/dockerfiles/001_python_tool/fluentd:/fluentd
+  es01:
+    image: elasticsearch:flask
+    container_name: elasticsearch001
+    environment:
+      #- discovery.type=single-node
+      - node.name=elasticsearch001
+      - cluster.name=elasticsearch-cluster
+      - discovery.seed_hosts=elasticsearch002,elasticsearch003
+      - cluster.initial_master_nodes=elasticsearch001,elasticsearch002,elasticsearch003
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    #volumes:
+    #  - /root/dockerfiles/001_python_tool/elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    expose:
+    - '9200'    
+    networks:
+      - backend
+  es02:
+    image: elasticsearch:flask
+    container_name: elasticsearch002
+    environment:
+      #- discovery.type=single-node
+      - node.name=elasticsearch002
+      - cluster.name=elasticsearch-cluster
+      - discovery.seed_hosts=elasticsearch001,elasticsearch003
+      - cluster.initial_master_nodes=elasticsearch001,elasticsearch002,elasticsearch003
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    #volumes:
+    #  - /root/dockerfiles/001_python_tool/elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9201:9200
+    networks:
+      - backend
+  es03:
+    image: elasticsearch:flask
+    container_name: elasticsearch003
+    environment:
+      #- discovery.type=single-node
+      - node.name=elasticsearch003
+      - cluster.name=elasticsearch-cluster
+      - discovery.seed_hosts=elasticsearch001,elasticsearch002
+      - cluster.initial_master_nodes=elasticsearch001,elasticsearch002,elasticsearch003
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms128m -Xmx128m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    #volumes:
+    #  - /root/dockerfiles/001_python_tool/elasticsearch/data:/usr/share/elasticsearch/data
+    ports:
+      - 9202:9200
+    networks:
+      - backend
+  kibana:
+    image: kibana:flask
+    hostname: kibana
+    container_name: kibana1
+    environment:
+        SERVER_NAME: "kibana"
+        #ELASTICSEARCH_HOSTS: "http://elasticsearch001:9200"
+        ELASTICSEARCH_REQUESTTIMEOUT: "60000"
+    ports:
+        - "5601:5601/tcp"
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup:/usr/share/kibana/config
+    networks:
+      - backend
+    depends_on:
+        - es01
+        - es02
+networks:
+    backend:
+
