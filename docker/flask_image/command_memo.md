@@ -2,6 +2,12 @@
 alias dpq='docker ps -a -q'
 sysctl -w vm.max_map_count=262144
 
+grep -H "" /etc/*version ; grep -H "" /etc/*release
+docker stats
+
+fluentd         :alpine
+kibana          :centos 8
+elasticsearch   :centos 8
 
 # trouble shoot
 
@@ -65,7 +71,7 @@ docker build -t fluentd:flask -f dockerfile_fluentd.df .
 docker  exec -it fluentd sh
 curl -X POST -d 'json={"json":"message"}' http://fluentd:24280/debug.test
 curl -X POST -F upfile=@/test_cron.log http://fluentd:24280/debug_test
-
+apk add openssh
 
 # df for haproxy
 docker build -t haproxy:flask -f dockerfile_haproxy.df .
