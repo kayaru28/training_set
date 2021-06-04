@@ -1,9 +1,0 @@
-
-server.name: kibana
-server.host: "0"
-elasticsearch.hosts: 
-  - http://elasticsearch001:9200
-  - http://elasticsearch002:9200
-  - http://elasticsearch003:9200
-logging.dest: /tmp/kibana.log
-xpack.monitoring.ui.container.elasticsearch.enabled: true
