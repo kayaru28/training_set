@@ -17,6 +17,7 @@ services:
       - "app002"
   app001:
     image: python36:flask
+    init: true
     container_name: flask001
     hostname: flask001
     networks:
@@ -27,6 +28,7 @@ services:
       - "mysql"
   app002:
     image: python36:flask
+    init: true
     container_name: flask002
     hostname: flask002
     networks:
@@ -37,6 +39,7 @@ services:
       - "mysql"
   mysql:
     image: mysql:flask 
+    init: true
     container_name: mysql
     networks:
       - backend
@@ -48,6 +51,7 @@ services:
       - "fluentd"
   fluentd:
     image: fluentd:flask
+    init: true
     container_name: fluentd
     networks:
       - backend
@@ -61,6 +65,7 @@ services:
       - /root/dockerfiles/001_python_tool/fluentd:/fluentd
   es01:
     image: elasticsearch:flask
+    init: true
     container_name: elasticsearch001
     environment:
       #- discovery.type=single-node
@@ -84,6 +89,7 @@ services:
       - backend
   es02:
     image: elasticsearch:flask
+    init: true
     container_name: elasticsearch002
     environment:
       #- discovery.type=single-node
@@ -105,6 +111,7 @@ services:
       - backend
   es03:
     image: elasticsearch:flask
+    init: true
     container_name: elasticsearch003
     environment:
       #- discovery.type=single-node
@@ -126,6 +133,7 @@ services:
       - backend
   kibana:
     image: kibana:flask
+    init: true
     hostname: kibana
     container_name: kibana1
     environment:
@@ -142,5 +150,5 @@ services:
         - es01
         - es02
 networks:
-    backend:
+  backend:
 

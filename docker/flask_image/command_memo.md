@@ -5,6 +5,7 @@ sysctl -w vm.max_map_count=262144
 grep -H "" /etc/*version ; grep -H "" /etc/*release
 docker stats
 
+lb              :centos 7
 fluentd         :alpine
 kibana          :centos 8
 elasticsearch   :centos 8
@@ -106,6 +107,8 @@ https://qiita.com/ryurock/items/b9c51435bcc617d7c6be
 # kibana
 docker build -t kibana:flask -f dockerfile_kibana.df .
 
+# ansible
+docker build -t ansible:flask -f dockerfile_ansible.df .
 
 
 # df for sql Legacy
