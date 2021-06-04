@@ -33,7 +33,7 @@ docker build -t python36:flask -f dockerfile_python.df .
 
 ## test
 docker run -it -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro --net flask ${dfname}
-http://10.255.255.1:8081/rpsapi?name=kayaru&value=0
+curl localhost:8080/rpsapi?name=kayaru&value=0
 
 docker build -t test:flask -f dockerfile_test_flask.df .
 
