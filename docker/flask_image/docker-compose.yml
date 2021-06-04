@@ -1,7 +1,8 @@
-version: '3'
+version: '3.7'
 services:
   lb:
     image: haproxy:flask
+    init: true
     container_name: lb
     networks:
       - backend
