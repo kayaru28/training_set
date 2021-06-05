@@ -55,6 +55,9 @@ services:
     container_name: fluentd
     networks:
       - backend
+    ports:
+      - "24222:24222/tcp"
+      - "24223:24223/tcp"
     expose:
       # default port 5140/tcp,24224/tcp
       - '24220'
@@ -138,8 +141,13 @@ services:
     init: true
     hostname: kibana
     container_name: kibana1
+    logging:
+      driver: fluentd
+      options:
+        fluentd-address: localhost:24223
+        tag: kibana.access
     environment:
-        SERVER_NAME: "kibana"
+        SERVER_NAME: kibana
         #ELASTICSEARCH_HOSTS: "http://elasticsearch001:9200"
         ELASTICSEARCH_REQUESTTIMEOUT: "60000"
     ports:
@@ -153,6 +161,7 @@ services:
     depends_on:
         - es01
         - es02
+        - fluentd
 networks:
   backend:
 
