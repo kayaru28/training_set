@@ -1,3 +1,8 @@
 FROM docker.elastic.co/kibana/kibana:7.12.0
 
+# USER root
+# RUN yum install sudo -y
+# RUN curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent4.sh | sh
+# USER kibana
+
 CMD  source /setup/setup_rps_kibana.sh
