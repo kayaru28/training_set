@@ -155,7 +155,7 @@ services:
     volumes:
       - /root/dockerfiles/001_python_tool/setup:/setup:ro
       - /root/dockerfiles/001_python_tool/setup/kibana/config:/usr/share/kibana/config
-      - /root/dockerfiles/001_python_tool/setup/kibana/td-agent:/etc/td-agent
+    #  - /root/dockerfiles/001_python_tool/setup/kibana/td-agent:/etc/td-agent
     networks:
       - backend
     depends_on:
