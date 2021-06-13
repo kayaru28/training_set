@@ -1,5 +1,5 @@
 set destination_host=root@192.168.1.240
-set source_file=D:\WORK\b418_STUDY_git\training_set\docker\flask_image\setup\*
+set source_file=D:\WORK\b418_STUDY_git\training_set\docker\001_flask_image\setup\*
 set destination_directory=/root/dockerfiles/001_python_tool/setup/
 
 scp -i C:\Users\istor\.ssh\id_rsa_pc4 -r %source_file% %destination_host%:%destination_directory%
