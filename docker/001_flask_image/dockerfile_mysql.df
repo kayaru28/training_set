@@ -1,3 +1,2 @@
-FROM mysql:5
-
+FROM mysql:8
 

@@ -9,6 +9,7 @@ lb              :centos 7
 fluentd         :alpine
 kibana          :centos 8
 elasticsearch   :centos 8
+mysql           :debian
 
 # trouble shoot
 
