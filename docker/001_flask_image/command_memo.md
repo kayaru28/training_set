@@ -148,14 +148,12 @@ create table rps.battle_history( \
 ); \
 alter table rps.battle_history add primary key (time,id);
 
-
-
-
 RUN scp root@${ip_host}:/root/dockerfiles/001_python_tool/secret.txt /root/
 
 source setup_rps_mysql.sh
 
+SELECT user, host, plugin FROM mysql.user;
 
-
+docker exec -it mysql mysql -u root -p
 
 
