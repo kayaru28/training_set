@@ -52,6 +52,11 @@ docker run -d -v "$PWD/setup/mysql_setup:/docker-entrypoint-initdb.d" -e MYSQL_R
 
 docker build -t ${sql_dfname} -f dockerfile_mysql.df .
 
+docker exec -it mysql mysql -u root -p
+SELECT user, host, plugin FROM mysql.user;
+
+mysql --version
+
 # df for logstash
 export logstash_ver=""
 export logstash_conname="logstash${logstash_ver}"
@@ -153,7 +158,5 @@ RUN scp root@${ip_host}:/root/dockerfiles/001_python_tool/secret.txt /root/
 source setup_rps_mysql.sh
 
 SELECT user, host, plugin FROM mysql.user;
-
-docker exec -it mysql mysql -u root -p
 
 
