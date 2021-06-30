@@ -51,6 +51,21 @@ services:
       MYSQL_ROOT_PASSWORD: ${root_pass}
     depends_on:
       - "fluentd"
+  mysql-secondary001:
+    image: mysql:flask 
+    command: --default-authentication-plugin=mysql_native_password
+    init: true
+    container_name: mysql_s01
+    networks:
+      - backend
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup/mysql:/docker-entrypoint-initdb.d
+      - /root/dockerfiles/001_python_tool/setup:/setup
+    environment:
+      MYSQL_ROOT_PASSWORD: ${root_pass}
+    depends_on:
+      - "mysql"
+      - "fluentd"
   fluentd:
     image: fluentd:flask
     init: true
