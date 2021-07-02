@@ -1,0 +1,11 @@
+FROM centos:8
+
+RUN dnf install python38 -y
+ENV LC_ALL C.utf8
+
+RUN dnf install epel-release -y
+RUN dnf install sshpass -y
+RUN dnf install openssh-clients -y 
+
+RUN pip3.8 install --upgrade pip
+RUN pip3.8 install ansible
