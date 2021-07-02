@@ -1,0 +1,32 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:flask
+    command: --default-authentication-plugin=mysql_native_password
+    init: true
+    container_name: mysql
+    networks:
+      - backend
+    expose:
+      - '33061'
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup/mysql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${root_pass}
+  mysql-secondary001:
+    image: mysql:flask
+    command: --default-authentication-plugin=mysql_native_password
+    init: true
+    container_name: mysql002
+    networks:
+      - backend
+    expose:
+      - '33061'
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup/mysql_secondary:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${root_pass}
+    depends_on:
+      - "mysql"
+networks:
+  backend:
