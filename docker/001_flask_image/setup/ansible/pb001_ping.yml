@@ -1,0 +1,5 @@
+---
+  - hosts: all_servers
+    tasks:
+    - name: ping
+      ping:

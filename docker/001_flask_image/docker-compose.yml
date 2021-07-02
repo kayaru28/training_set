@@ -164,6 +164,18 @@ services:
         - es01
         - es02
         - fluentd
+  ansible:
+    image: ansible:flask
+    init: true
+    hostname: ansible
+    container_name: ansible
+    tty: true
+    networks:
+      - backend
+    depends_on:
+      - mysql
+    volumes:
+      - /root/dockerfiles/001_python_tool/setup/ansible:/ansible
 networks:
   backend:
 

@@ -56,13 +56,9 @@ docker exec -it mysql mysql -u root -p
 SELECT user, host, plugin FROM mysql.user;
 SHOW PLUGINS;
 SHOW VARIABLES LIKE '%gtid%';
-SELECT * FROM performance_schema.replication_group_members;
 
 mysql --version
 
-SET GLOBAL group_replication_bootstrap_group=ON;
-START GROUP_REPLICATION;
-SET GLOBAL group_replication_bootstrap_group=OFF;
 
 # df for logstash
 export logstash_ver=""
@@ -121,8 +117,17 @@ https://qiita.com/ryurock/items/b9c51435bcc617d7c6be
 docker build -t kibana:flask -f dockerfile_kibana.df .
 
 # ansible
+docker image tag ansible:flask bk
+docker rmi ansible:flask
 docker build -t ansible:flask -f dockerfile_ansible.df .
+docker rmi bk
 
+cd /ansible
+ansible-playbook -i inventory.ini pb001_ping.yml
+ansible -i inventory.ini hosts -m ping
+
+ansible -i inventory.ini hosts -m ping --ask-pass
+docker exec -it ansible bash
 
 # df for sql Legacy
 export sql_ver=8
