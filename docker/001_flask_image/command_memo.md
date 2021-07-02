@@ -60,6 +60,10 @@ SELECT * FROM performance_schema.replication_group_members;
 
 mysql --version
 
+SET GLOBAL group_replication_bootstrap_group=ON;
+START GROUP_REPLICATION;
+SET GLOBAL group_replication_bootstrap_group=OFF;
+
 # df for logstash
 export logstash_ver=""
 export logstash_conname="logstash${logstash_ver}"
