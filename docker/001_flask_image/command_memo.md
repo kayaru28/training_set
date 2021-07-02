@@ -54,6 +54,9 @@ docker build -t ${sql_dfname} -f dockerfile_mysql.df .
 
 docker exec -it mysql mysql -u root -p
 SELECT user, host, plugin FROM mysql.user;
+SHOW PLUGINS;
+SHOW VARIABLES LIKE '%gtid%';
+SELECT * FROM performance_schema.replication_group_members;
 
 mysql --version
 
