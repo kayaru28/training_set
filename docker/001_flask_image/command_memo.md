@@ -126,7 +126,7 @@ cd /ansible
 ansible-playbook -i inventory.ini pb001_ping.yml
 ansible -i inventory.ini hosts -m ping
 
-ansible -i inventory.ini hosts -m ping --ask-pass
+ansible -i inventory.ini hosts -m ping
 docker exec -it ansible bash
 
 # df for sql Legacy

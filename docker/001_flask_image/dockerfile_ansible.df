@@ -9,3 +9,10 @@ RUN dnf install openssh-clients -y
 
 RUN pip3.8 install --upgrade pip
 RUN pip3.8 install ansible
+
+
+
+
+yum install python38 -y
+
+

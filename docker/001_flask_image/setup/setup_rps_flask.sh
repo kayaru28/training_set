@@ -1,5 +1,4 @@
 
-source /setup/setup_rps_common.sh
 export root_password=$(cat /setup/secret.txt |grep root_pass| awk '{print $1}')
 
 rm -f app-python.zip*
