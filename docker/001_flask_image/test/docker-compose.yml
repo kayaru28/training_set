@@ -6,7 +6,9 @@ services:
     networks:
       - backend
     volumes:
-      - /root/dockerfiles/001_python_tool/setup:/root/setup:ro
+    - /root/dockerfiles/001_python_tool/setup/flask:/setup:ro
+    environment:
+      root_password: ${root_pass}
     depends_on:
       - "mysql"
   mysql:
