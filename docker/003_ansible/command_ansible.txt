@@ -1,0 +1,4 @@
+
+# 疎通
+ansible -i inventory.ini all_servers -m ping
+
