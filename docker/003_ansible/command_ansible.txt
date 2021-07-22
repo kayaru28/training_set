@@ -2,3 +2,12 @@
 # 疎通
 ansible -i inventory.ini all_servers -m ping
 
+ansible -i inventory.ini all_servers
+
+export a_host="all_servers"
+export a_playbook="001_vert_setting/docker_install.yml"
+export a_playbook="001_vert_setting/test.yml"
+ansible-playbook -i inventory.ini ${a_playbook} --syntax-check
+
+
+ ansible-playbook -i inventory.ini ${a_playbook}
