@@ -21,10 +21,9 @@ chmod 700 ~/.ssh/
 cd ~/.ssh/
 ssh-keygen -t rsa
 
+
+ssh-keygen -R 192.168.1.241
 ssh -i /root/.ssh/id_rsa_grun root@192.168.1.241
-
-
-
 
 
 

@@ -10,4 +10,11 @@ export a_playbook="001_vert_setting/test.yml"
 ansible-playbook -i inventory.ini ${a_playbook} --syntax-check
 
 
- ansible-playbook -i inventory.ini ${a_playbook}
+ansible-playbook -i inventory.ini ${a_playbook}
+
+
+
+
+
+
+
