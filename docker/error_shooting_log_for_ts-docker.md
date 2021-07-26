@@ -90,3 +90,59 @@ jinja2.exceptions.TemplateNotFound: rps_form.html
 10.255.255.2 - - [11/Jan/2021 14:22:29] "GET /rps HTTP/1.1" 500 -
 
 
+## case 5
+### yum error
+[root@localhost yum.repos.d]# yum update
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: ftp.yz.yamagata-u.ac.jp
+ * centos-kernel: ftp.yz.yamagata-u.ac.jp
+ * extras: ftp.yz.yamagata-u.ac.jp
+ * updates: ftp.yz.yamagata-u.ac.jp
+base                                                                                          | 3.6 kB  00:00:00
+centos-kernel                                                                                 | 2.9 kB  00:00:00
+https://download.docker.com/linux/centos/7/armhfp/stable/repodata/repomd.xml: [Errno 14] HTTPS Error 404 - Not Found
+Trying other mirror.
+To address this issue please refer to the below wiki article
+
+https://wiki.centos.org/yum-errors
+
+If above article doesn't help to resolve this issue please use https://bugs.centos.org/.
+
+
+
+ One of the configured repositories failed (Docker CE Stable - armhfp),
+ and yum doesn't have enough cached data to continue. At this point the only
+ safe thing yum can do is fail. There are a few ways to work "fix" this:
+
+     1. Contact the upstream for the repository and get them to fix the problem.
+
+     2. Reconfigure the baseurl/etc. for the repository, to point to a working
+        upstream. This is most often useful if you are using a newer
+        distribution release than is supported by the repository (and the
+        packages for the previous distribution release still work).
+
+     3. Run the command with the repository temporarily disabled
+            yum --disablerepo=docker-ce-stable ...
+
+     4. Disable the repository permanently, so yum won't use it by default. Yum
+        will then just ignore the repository until you permanently enable it
+        again or use --enablerepo for temporary usage:
+
+            yum-config-manager --disable docker-ce-stable
+        or
+            subscription-manager repos --disable=docker-ce-stable
+
+     5. Configure the failing repository to be skipped, if it is unavailable.
+        Note that yum will try to contact the repo. when it runs most commands,
+        so will have to try and fail each time (and thus. yum will be be much
+        slower). If it is a very temporary problem though, this is often a nice
+        compromise:
+
+            yum-config-manager --save --setopt=docker-ce-stable.skip_if_unavailable=true
+
+failure: repodata/repomd.xml from docker-ce-stable: [Errno 256] No more mirrors to try.
+https://download.docker.com/linux/centos/7/armhfp/stable/repodata/repomd.xml: [Errno 14] HTTPS Error 404 - Not Found
+[root@localhost yum.repos.d]#
+
+### cite
