@@ -1,0 +1,5 @@
+- name: test ping
+  hosts: docker_host
+  tasks:
+    - ping:
+
