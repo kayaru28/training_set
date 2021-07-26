@@ -1,11 +1,9 @@
 
 # basic
-hostname vert001
+hostnamectl set-hostname vert001
 
 # setup for login
 passwd
-
-
 
 # setup for ssh
 mkdir ~/.ssh
@@ -22,11 +20,11 @@ systemctl restart sshd
 systemctl status sshd
 
 # setup for disk size
-rootfs-expand
 df -h
 
-
-
+## atchive
+### centOS
+rootfs-expand
 
 
 
