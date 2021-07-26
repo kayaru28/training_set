@@ -1,0 +1,50 @@
+# https://qiita.com/yukin01/items/dd1cfc07abefd6a13aa5
+- name: ping check  
+  hosts: vert
+  tasks:
+    - ping:
+
+- name: yum update
+  hosts: vert
+  tasks:
+  - name: apt update
+    apt:
+      update_cache: yes
+    async: 1000
+    poll: 1
+
+- name: installing docker
+  hosts: vert
+  tasks:
+    - name: install curl
+      apt:
+        name: curl
+        state: present
+      become: yes
+
+    - name: download docker shell
+      shell: curl -fsSL https://get.docker.com/ -o /root/get-docker.sh
+
+    - name: execute docker shell
+      shell: sh /root/get-docker.sh
+      async: 1000
+      poll: 1
+
+      - name: start docker
+      systemd:
+        name: docker
+        state: started
+        daemon_reload: yes
+        enabled: yes
+      become: yes
+
+
+
+
+
+
+
+
+
+
+

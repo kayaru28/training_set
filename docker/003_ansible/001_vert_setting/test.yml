@@ -1,0 +1,16 @@
+- name: test ping
+  hosts: vert
+  tasks:
+    - ping:
+
+- name: yum update
+  hosts: vert
+  tasks:
+  - name: Yum update at hosts
+    yum:
+      name: '*'
+      state: latest
+    async: 1000
+    poll: 1
+    register: yum_sleeper
+
