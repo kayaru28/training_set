@@ -30,6 +30,7 @@ docker run -itd -v /root/dockerfiles/001_python_tool/setup:/root/setup:ro  -p 80
 
 docker build -t ${dfname} -f dockerfile_python.df .
 docker build -t python36:flask -f dockerfile_python.df .
+docker build -t python36:flask -f dockerfile_python.df .
 
 
 ## test
