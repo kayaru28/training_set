@@ -1,8 +1,4 @@
 # https://qiita.com/yukin01/items/dd1cfc07abefd6a13aa5
-- name: ping check  
-  hosts: vert
-  tasks:
-    - ping:
 
 - name: yum update
   hosts: vert
