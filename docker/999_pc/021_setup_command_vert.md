@@ -9,13 +9,10 @@ passwd
 mkdir ~/.ssh
 cat id_rsa_grun.pub >> ~/.ssh/authorized_keys
 echo "" >> ~/.ssh/authorized_keys
-
 cat id_rsa_verdigris.pub >> ~/.ssh/authorized_keys
 chmod 700 ~/.ssh/
 chmod 600 ~/.ssh/authorized_keys
-
-vi /etc/ssh/sshd_config
-PubkeyAuthentication yes
+echo "PubkeyAuthentication yes" >> /etc/ssh/sshd_config
 systemctl restart sshd
 systemctl status sshd
 
