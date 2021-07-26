@@ -3,13 +3,23 @@
 - name: make directory
   hosts: docker_host
   tasks:
-  - name: make directory
+  - name: make root directory
     file:
       path=/dockerroot
       state=directory
       group=root mode=0755
 
+  - name: make setup directory
+    file:
+      path=/dockerroot/setup
+      state=directory
+      group=root mode=0755
 
+  - name: make setup directory
+    file:
+      path=/dockerroot/test
+      state=directory
+      group=root mode=0755
 
 
 
