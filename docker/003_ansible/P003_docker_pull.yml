@@ -1,0 +1,15 @@
+# https://docs.ansible.com/ansible/2.8/modules/docker_image_module.html
+
+- name: docker pull base image
+  hosts: docker_host
+  tasks:
+  - name: pull centos7
+    docker_image:
+      name: centos:7
+      source: pull
+
+  - name: pull mysql
+    docker_image:
+      name: :8
+      source: pull
+
