@@ -145,4 +145,5 @@ failure: repodata/repomd.xml from docker-ce-stable: [Errno 256] No more mirrors 
 https://download.docker.com/linux/centos/7/armhfp/stable/repodata/repomd.xml: [Errno 14] HTTPS Error 404 - Not Found
 [root@localhost yum.repos.d]#
 
-### cite
+### cause
+the OS bit count is 32 bit
