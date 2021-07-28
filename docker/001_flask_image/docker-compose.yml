@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   lb:
-    image: haproxy:flask
+    image: haproxy:rps
     init: true
     container_name: lb
     networks:
@@ -16,7 +16,7 @@ services:
       - "app001"
       - "app002"
   app001:
-    image: python36:flask
+    image: flask:rps
     init: true
     container_name: flask001
     hostname: flask001
@@ -29,7 +29,7 @@ services:
     depends_on:
       - "mysql"
   app002:
-    image: python36:flask
+    image: flask:rps
     init: true
     container_name: flask002
     hostname: flask002
@@ -42,7 +42,7 @@ services:
     depends_on:
       - "mysql"
   mysql:
-    image: mysql:flask 
+    image: mysql:rps 
     command: --default-authentication-plugin=mysql_native_password
     init: true
     container_name: mysql
@@ -56,7 +56,7 @@ services:
     depends_on:
       - "fluentd"
   fluentd:
-    image: fluentd:flask
+    image: fluentd:rps
     init: true
     container_name: fluentd
     networks:
@@ -75,7 +75,7 @@ services:
       - /dockerroot/setup:/setup:ro
       - /dockerroot/setup/fluentd:/fluentd
   es01:
-    image: elasticsearch:flask
+    image: elasticsearch:rps
     init: true
     container_name: elasticsearch001
     environment:
@@ -99,7 +99,7 @@ services:
     networks:
       - backend
   es02:
-    image: elasticsearch:flask
+    image: elasticsearch:rps
     init: true
     container_name: elasticsearch002
     environment:
@@ -121,7 +121,7 @@ services:
     networks:
       - backend
   es03:
-    image: elasticsearch:flask
+    image: elasticsearch:rps
     init: true
     container_name: elasticsearch003
     environment:
@@ -143,7 +143,7 @@ services:
     networks:
       - backend
   kibana:
-    image: kibana:flask
+    image: kibana:rps
     init: true
     hostname: kibana
     container_name: kibana
