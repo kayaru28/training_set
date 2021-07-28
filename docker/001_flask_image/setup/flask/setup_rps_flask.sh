@@ -13,8 +13,8 @@ rm -r -f templates
 cp /setup/*.py / # for test
 cp -r /setup/templates / # for test
 
-crontab /setup/cron_rps_flask.conf
-crond
+#crontab /setup/cron_rps_flask.conf
+#crond
 
 mkdir /log
 chmod 777 /log
