@@ -26,7 +26,10 @@
       name: docker
     become: yes
 
-
+  - name: Installing docker compose
+    pip:
+      name: docker-compose
+      state: present
 
 
 
