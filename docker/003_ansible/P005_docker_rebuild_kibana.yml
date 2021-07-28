@@ -1,0 +1,21 @@
+# https://qiita.com/yukin01/items/dd1cfc07abefd6a13aa5
+
+- name: docker re build
+  hosts: docker_host
+  tasks:
+  - name: remove image kibana
+    docker_image:
+      name: kibana:rps
+      state: absent
+    async: 1000
+    poll: 1
+
+  - name: re build image kibana
+    docker_image:
+      name: kibana:rps
+      build:
+        path: /dockerroot/setup
+        dockerfile: dockerfile_kibana.df
+      source: build
+    async: 1000
+    poll: 1

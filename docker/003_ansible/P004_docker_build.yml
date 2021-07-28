@@ -1,0 +1,65 @@
+# https://qiita.com/yukin01/items/dd1cfc07abefd6a13aa5
+
+- name: docker build
+  hosts: docker_host
+  tasks:
+  - name: build image flask
+    docker_image:
+      name: flask:rps
+      build:
+        path: /dockerroot/setup
+        dockerfile: dockerfile_flask.df
+      source: build
+    async: 1000
+    poll: 1
+
+  - name: build image mysql
+    docker_image:
+      name: mysql:rps
+      build:
+        path: /dockerroot/setup
+        dockerfile: dockerfile_mysql.df
+      source: build
+    async: 1000
+    poll: 1
+
+  - name: build image haproxy
+    docker_image:
+      name: haproxy:rps
+      build:
+        path: /dockerroot/setup
+        dockerfile: dockerfile_haproxy.df
+      source: build
+    async: 1000
+    poll: 1
+
+  - name: build image fluentd
+    docker_image:
+      name: fluentd:rps
+      build:
+        path: /dockerroot/setup
+        dockerfile: dockerfile_fluentd.df
+      source: build
+    async: 1000
+    poll: 1
+
+  - name: build image elasticsearch
+    docker_image:
+      name: elasticsearch:rps
+      build:
+        path: /dockerroot/setup
+        dockerfile: dockerfile_elasticsearch.df
+      source: build
+    async: 1000
+    poll: 1
+
+  - name: build image kibana
+    docker_image:
+      name: kibana:rps
+      build:
+        path: /dockerroot/setup
+        dockerfile: dockerfile_kibana.df
+      source: build
+    async: 1000
+    poll: 1
+
