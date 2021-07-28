@@ -20,14 +20,14 @@ RUN yum install cronie -y
 
 RUN pip3 install fluent-logger
 
-ENV LC_ALL en_US.UTF-8
+
+RUN localedef -f UTF-8 -i en_US en_US.utf8 # error fix for setlocale
+
+ENV LC_ALL en_US.utf8
+
 ENV FLASK_APP /flask_base.py
 
 ENTRYPOINT  source /setup/setup_rps_flask.sh
-
-
-
-
 
 
 
