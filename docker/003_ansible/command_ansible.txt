@@ -13,7 +13,4 @@ ansible-playbook -i inventory.ini ${a_playbook}
 
 
 
-
-
-
-docker_install_by_ansible
+ansible-playbook -i inventory.ini P00
