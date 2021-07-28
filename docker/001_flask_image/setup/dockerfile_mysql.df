@@ -1,1 +1,7 @@
-FROM --platform=linux/amd64 mysql:8
+# matching manifest for linux/arm64 in the manifest list entries,
+#FROM --platform=linux/x86_64 mysql:8.0
+#FROM mysql:8.0
+
+# https://www.ultra-noob.com/blog/2020/171/#%E6%AD%A3%E5%B8%B8%E5%8B%95%E4%BD%9C%E3%81%99%E3%82%8Bdocker-composeyml
+FROM mysql/mysql-server:latest-aarch64  
+
