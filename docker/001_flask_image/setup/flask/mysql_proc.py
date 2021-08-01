@@ -10,9 +10,9 @@ from sqlalchemy.types import VARCHAR, Integer, TIMESTAMP
 
 import logging
 #from sqlalchemy import distinct
-ROOT_USER = "root"
-ROOT_PASS = environ['root_password']
-ROOT_HOST = "mysql"
+MYSQL_USER = environ['MYSQL_USER']
+MYSQL_PASS = environ['MYSQL_PASSWORD']
+MYSQL_HOST = "mysql"
 DB_NAME_RPS = "rps"
 
 
@@ -83,7 +83,7 @@ class BattleCount(Base):
 # spacial -------------------------
 
 def getEngineRps():
-    engine_key = getEngineKey(ROOT_USER,ROOT_PASS,ROOT_HOST,DB_NAME_RPS)
+    engine_key = getEngineKey(MYSQL_USER,MYSQL_PASS,MYSQL_HOST,DB_NAME_RPS)
     engine=create_engine(engine_key)
 
     return engine

@@ -11,7 +11,7 @@ LOG_DIR  = "/log"
 LOG_FILE = LOG_DIR + "/applog_flask.log"
 
 app = Flask(__name__)  
-app.secret_key = environ['root_password']
+app.secret_key = environ['ROOT_PASSWORD']
 
 file_handler = FileHandler(LOG_FILE)
 

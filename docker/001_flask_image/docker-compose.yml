@@ -25,7 +25,9 @@ services:
     volumes:
       - /dockerroot/setup/flask:/setup:ro
     environment:
-      root_password: ${root_pass}
+      ROOT_PASSWORD: ${ROOT_PASS}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${STD_PASS}
     depends_on:
       - "mysql"
   app002:
@@ -38,7 +40,9 @@ services:
     volumes:
       - /dockerroot/setup/flask:/setup:ro
     environment:
-      root_password: ${root_pass}
+      ROOT_PASSWORD: ${ROOT_PASS}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${STD_PASS}
     depends_on:
       - "mysql"
   mysql:
@@ -53,7 +57,9 @@ services:
       - /dockerroot/setup/mysql:/docker-entrypoint-initdb.d
     #  - /dockerroot/setup/mysql:/setup
     environment:
-      MYSQL_ROOT_PASSWORD: ${root_pass}
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${STD_PASS}
     depends_on:
       - "fluentd"
   fluentd:
