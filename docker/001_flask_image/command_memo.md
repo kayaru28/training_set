@@ -20,6 +20,7 @@ docker run --rm -it { 適当につけたコンテナ名 } sh
 # docker compose
 docker-compose up -d
 docker-compose down
+docker-compose down --volumes
 
 # df for flask app
 export flask_ver="1.0"
